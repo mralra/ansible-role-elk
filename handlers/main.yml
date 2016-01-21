@@ -1,0 +1,14 @@
+---
+# handlers file for elk
+- name: restart nginx
+  service:
+    name: nginx
+    state: restarted
+
+- name: restart logstash
+  service:
+    name: logstash
+    state: restarted
+
+- name: reload systemd config
+  command: /bin/systemctl daemon-reload

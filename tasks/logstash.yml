@@ -13,11 +13,19 @@
   apt:
     name: logstash
     state: latest
-  register: logstash_installed
+  notify:
+    - reload systemd config
+    - restart logstash
 
-- name: Reload systemd config.
-  command: /bin/systemctl daemon-reload
-  when: logstash_installed.changed
+- name: Copy Logstash filters.
+  template:
+    src: "{{ item.src }}"
+    dest: "/etc/logstash/conf.d/{{ item.dest }}"
+    owner: root
+    group: root
+    mode: "0644"
+  with_items: logstash_filters
+  notify: restart logstash
 
 - name: Enable logstash service.
   service:

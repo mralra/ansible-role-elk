@@ -18,10 +18,16 @@
     owner: root
     group: root
     mode: "0644"
+  notify: restart nginx
 
 - name: Disable default Nginx site.
   file:
     path: /etc/nginx/sites-available/default
     state: absent
+  notify: restart nginx
 
-
+- name: Enable nginx service.
+  service:
+    name: nginx
+    state: running
+    enabled: yes
