@@ -1,0 +1,49 @@
+---
+- name: Download Kibana tarball.
+  get_url:
+    url: https://download.elastic.co/kibana/kibana/kibana-4.3.1-linux-x64.tar.gz
+    dest: /opt/kibana-4.3.1-linux-x64.tar.gz
+
+- name: Check for existing Kibana installation.
+  stat:
+    path: /opt/kibana-{{ kibana_version }}-linux-x64
+  register: kibana_directory_check
+
+- name: Extract Kibana tarball.
+  unarchive:
+    copy: no
+    src: /opt/kibana-4.3.1-linux-x64.tar.gz
+    dest: /opt/
+    owner: "{{ kibana_user }}"
+    group: "{{ kibana_user }}"
+  when: kibana_directory_check.stat.exists == false
+
+- name: Symlink Kibana directory.
+  file:
+    state: link
+    dest: /opt/kibana
+    src: /opt/kibana-4.3.1-linux-x64
+    owner: "{{ kibana_user }}"
+    group: "{{ kibana_user }}"
+
+- name: Configure Kibana to listen only on localhost.
+  lineinfile:
+    dest: /opt/kibana/config/kibana.yml
+    regexp: '^server\.host'
+    line: 'server.host: "localhost"'
+    state: present
+
+- name: Create Kibana systemd service file.
+  template:
+    src: kibana.service.j2
+    dest: /etc/systemd/system/kibana.service
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Enable kibana service.
+  service:
+    name: kibana
+    state: running
+    enabled: yes
+

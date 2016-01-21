@@ -1,0 +1,27 @@
+---
+# In production we may want to use Apache, rather than Nginx,
+# since Kevin and Conor have more experience with Apache.
+# To do so, the FPF apache config should be broken out into a role,
+# so it can be included here and used with `fpf-ssl-certs`.
+# In the meantime, tossing together a reverse proxy via nginx was
+# pretty trivial.
+
+- name: Install nginx (for Kibana reverse proxy).
+  apt:
+    name: nginx
+    state: present
+
+- name: Write Kibana Nginx config.
+  template:
+    src: kibana-nginx.conf.j2
+    dest: /etc/nginx/conf.d/kibana.conf
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Disable default Nginx site.
+  file:
+    path: /etc/nginx/sites-available/default
+    state: absent
+
+
