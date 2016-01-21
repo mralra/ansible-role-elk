@@ -1,0 +1,6 @@
+---
+# tasks file for elk
+
+- include: java.yml
+- include: elasticsearch.yml
+- include: logstash.yml

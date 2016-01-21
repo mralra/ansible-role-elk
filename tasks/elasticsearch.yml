@@ -1,0 +1,27 @@
+---
+- name: Add ElasticSearch repo apt key.
+  apt_key:
+    url: https://packages.elastic.co/GPG-KEY-elasticsearch
+    state: present
+
+- name: Add ElasticSearch apt repo.
+  apt_repository:
+    repo: "deb http://packages.elastic.co/elasticsearch/2.x/debian stable main"
+    state: present
+
+- name: Install ElasticSearch.
+  apt:
+    name: elasticsearch
+    state: latest
+  register: elasticsearch_installed
+
+- name: Reload systemd config.
+  command: /bin/systemctl daemon-reload
+  when: elasticsearch_installed.changed
+
+- name: Enable elasticsearch service.
+  service:
+    name: elasticsearch
+    state: running
+    enabled: yes
+

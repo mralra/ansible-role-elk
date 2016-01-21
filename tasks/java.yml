@@ -1,0 +1,6 @@
+---
+- name: Install Java.
+  apt:
+    name: openjdk-7-jre-headless
+    state: present
+
