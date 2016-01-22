@@ -1,0 +1,25 @@
+---
+- name: Create ElasticSearch snapshot directory.
+  file:
+    path: "{{ elasticsearch_snapshot_directory }}"
+    state: directory
+    mode: "0750"
+    owner: elasticsearch
+    group: elasticsearch
+
+- name: Install httplib2
+  apt:
+    name: python-httplib2
+    state: present
+
+- name: Initialize ElasticSearch snapshot via API.
+  uri:
+    url: "http://localhost:9200/_snapshot/{{ elasticsearch_snapshot_repository }}"
+    method: PUT
+    body: "{{ elasticsearch_snapshot_initialization | to_json }}"
+
+- name: Create new snapshot via API.
+  uri:
+    url: "http://localhost:9200/_snapshot/{{ elasticsearch_snapshot_repository }}/{{ elasticsearch_snapshot_name }}?wait_for_completion=true"
+    method: PUT
+

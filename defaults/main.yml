@@ -6,3 +6,22 @@
 
 kibana_user: "www-data"
 kibana_version: "4.3.1"
+
+
+# Provide ability to disable the snapshot functionality. It's not well
+# tested, so "false" would be a sane default, but it's useful during testing
+# when rebuilding test VMs frequently.
+elasticsearch_snapshot: true
+
+elasticsearch_snapshot_directory: /var/lib/elasticsearch/backups
+elasticsearch_snapshot_repository: es_backup
+elasticsearch_snapshot_initialization:
+  type: fs
+  settings:
+    location: "{{ elasticsearch_snapshot_directory }}"
+    compress: yes
+  _hack: null
+
+# It'd be nice to use iso8601 instead epoch, but the ElasticSearch API
+# throws an invalid_snapshot_name error with the iso8601 format.
+elasticsearch_snapshot_name: "snapshot-{{ ansible_date_time.epoch }}"

@@ -1,8 +1,15 @@
 ---
 # tasks file for elk
-
 - include: java.yml
+
 - include: elasticsearch.yml
+
 - include: logstash.yml
+
 - include: kibana.yml
+
 - include: nginx.yml
+
+- include: snapshot.yml
+  when: elasticsearch_snapshot == true
+  tags: snapshot
