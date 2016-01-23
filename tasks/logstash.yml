@@ -17,14 +17,36 @@
     - reload systemd config
     - restart logstash
 
-- name: Copy Logstash filters.
+- name: Create Logstash config directories.
+  file:
+    path: "/etc/logstash/{{ item }}"
+    owner: root
+    group: root
+    mode: "0755"
+    state: directory
+  with_items:
+    - conf.d
+    - patterns.d
+
+- name: Copy (and verify) Logstash filters.
   template:
     src: "{{ item.src }}"
     dest: "/etc/logstash/conf.d/{{ item.dest }}"
     owner: root
     group: root
     mode: "0644"
+    validate: "/opt/logstash/bin/logstash --configtest -f %s"
   with_items: logstash_filters
+  notify: restart logstash
+
+- name: Copy Logstash patterns.
+  template:
+    src: "{{ item.src }}"
+    dest: "/etc/logstash/patterns.d/{{ item.dest }}"
+    owner: root
+    group: root
+    mode: "0644"
+  with_items: logstash_patterns
   notify: restart logstash
 
 - name: Enable logstash service.
