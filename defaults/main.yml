@@ -7,7 +7,6 @@
 kibana_user: "www-data"
 kibana_version: "4.3.1"
 
-
 # Provide ability to disable the snapshot functionality. It's not well
 # tested, so "false" would be a sane default, but it's useful during testing
 # when rebuilding test VMs frequently.
@@ -25,3 +24,6 @@ elasticsearch_snapshot_initialization:
 # It'd be nice to use iso8601 instead epoch, but the ElasticSearch API
 # throws an invalid_snapshot_name error with the iso8601 format.
 elasticsearch_snapshot_name: "snapshot-{{ ansible_date_time.epoch }}"
+
+# Interface used for firewall restrictions and IPv4 lookups
+elk_network_interface: eth0

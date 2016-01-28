@@ -12,3 +12,8 @@
 
 - name: reload systemd config
   command: /bin/systemctl daemon-reload
+
+- name: restart ufw
+  service:
+    name: ufw
+    state: restarted

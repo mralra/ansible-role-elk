@@ -1,0 +1,33 @@
+---
+- name: Install ufw.
+  become: yes
+  apt:
+    name: ufw
+    state: installed
+
+- name: Allow access to Kibana web interface from anywhere.
+  ufw:
+    rule: allow
+    proto: tcp
+    from_ip: any
+    port: "{{ item }}"
+  notify: restart ufw
+  with_items:
+    - 80
+    - 443
+
+- name: Restrict access to Logstash service to logclients.
+  ufw:
+    rule: allow
+    proto: tcp
+    from_ip: "{{ hostvars[item]['ansible_'+elk_network_interface].ipv4.address }}"
+    port: 5000
+  notify: restart ufw
+  with_items: groups.logclients
+
+- name: Ensure ufw is running.
+  service:
+    name: ufw
+    state: running
+    enabled: yes
+
