@@ -27,7 +27,7 @@
     state: present
   with_items:
     - regexp: 'cluster\.name:'
-      line: "{{ elk_cluster_name }}"
+      line: 'cluster.name: {{ elk_cluster_name }}'
     - regexp: 'network\.host:'
       line: 'network.host: "localhost"'
     - regexp: 'bootstrap\.mlockall:'
