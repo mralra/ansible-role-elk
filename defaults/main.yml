@@ -27,3 +27,5 @@ elasticsearch_snapshot_name: "snapshot-{{ ansible_date_time.epoch }}"
 
 # Interface used for firewall restrictions and IPv4 lookups
 elk_network_interface: eth0
+
+elk_cluster_name: elk-logging

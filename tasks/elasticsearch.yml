@@ -19,6 +19,22 @@
     - reload systemd
     - restart elasticsearch
 
+- name: Configure ElasticSearch.
+  lineinfile:
+    dest: /etc/elasticsearch/elasticsearch.yml
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items:
+    - regexp: 'cluster\.name:'
+      line: "{{ elk_cluster_name }}"
+    - regexp: 'network\.host:'
+      line: 'network.host: "localhost"'
+    - regexp: 'bootstrap\.mlockall:'
+      line: 'bootstrap.mlockall: true'
+  notify:
+    - restart elasticsearch
+
 - name: Enable elasticsearch service.
   service:
     name: elasticsearch
