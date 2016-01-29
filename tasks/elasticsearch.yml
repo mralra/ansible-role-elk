@@ -8,16 +8,16 @@
   apt_repository:
     repo: "deb http://packages.elastic.co/elasticsearch/2.x/debian stable main"
     state: present
+  notify:
+    - reload systemd
 
 - name: Install ElasticSearch.
   apt:
     name: elasticsearch
     state: latest
-  register: elasticsearch_installed
-
-- name: Reload systemd config.
-  command: /bin/systemctl daemon-reload
-  when: elasticsearch_installed.changed
+  notify:
+    - reload systemd
+    - restart elasticsearch
 
 - name: Enable elasticsearch service.
   service:

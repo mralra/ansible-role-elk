@@ -10,6 +10,11 @@
     name: logstash
     state: restarted
 
+- name: restart kibana
+  service:
+    name: kibana
+    state: restarted
+
 - name: reload systemd config
   command: /bin/systemctl daemon-reload
 

@@ -34,6 +34,8 @@
     regexp: '^server\.host'
     line: 'server.host: "localhost"'
     state: present
+  notify:
+    - restart kibana
 
 - name: Create Kibana systemd service file.
   template:
@@ -42,6 +44,9 @@
     owner: root
     group: root
     mode: "0644"
+  notify:
+    - reload systemd
+    - restart kibana
 
 - name: Enable kibana service.
   service:
