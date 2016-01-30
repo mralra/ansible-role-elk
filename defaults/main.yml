@@ -35,3 +35,7 @@ elk_cluster_name: elk-logging
 # You must place the SSL certs there in a separate play.
 elk_nginx_ssl_certificate: ""
 elk_nginx_ssl_certificate_key: ""
+
+# Not safe for production use! Override to secure logins.
+elk_kibana_username: kibana
+elk_kibana_password: kibana

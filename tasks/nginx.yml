@@ -20,6 +20,21 @@
     mode: "0644"
   notify: restart nginx
 
+- name: Install passlib (required for writing htpasswd file).
+  apt:
+    name: python-passlib
+    state: present
+
+- name: Create htpasswd file to restrict access to Kibana web interface.
+  htpasswd:
+    name: "{{ elk_kibana_username }}"
+    password: "{{ elk_kibana_password }}"
+    path: /etc/nginx/conf.d/kibana.htpasswd
+    owner: root
+    group: "{{ elk_nginx_user }}"
+    mode: "0640"
+  notify: restart nginx
+
 - name: Disable default Nginx site.
   file:
     path: /etc/nginx/sites-available/default
