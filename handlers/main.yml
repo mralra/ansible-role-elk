@@ -15,7 +15,12 @@
     name: kibana
     state: restarted
 
-- name: reload systemd config
+- name: restart elasticsearch
+  service:
+    name: elasticsearch
+    state: restarted
+
+- name: reload systemd
   command: /bin/systemctl daemon-reload
 
 - name: restart ufw

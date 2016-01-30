@@ -14,7 +14,7 @@
     name: logstash
     state: latest
   notify:
-    - reload systemd config
+    - reload systemd
     - restart logstash
 
 - name: Create Logstash config directories.
