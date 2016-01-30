@@ -1,16 +1,22 @@
 ---
 # tasks file for elk
 - include: java.yml
+  tags: java
 
 - include: elasticsearch.yml
+  tags: elasticsearch
 
 - include: logstash.yml
+  tags: logstash
 
 - include: kibana.yml
+  tags: kibana
 
 - include: nginx.yml
+  tags: nginx
 
 - include: ufw.yml
+  tags: ufw
 
 - include: snapshot.yml
   when: elasticsearch_snapshot == true
