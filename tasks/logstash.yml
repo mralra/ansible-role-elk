@@ -17,6 +17,20 @@
     - reload systemd
     - restart logstash
 
+  # Two-pass approach. Even listing the plugins takes several seconds,
+  # but it's worth it to pay that overhead rather than the several tens
+  # of seconds it takes to "install" the plugin, even if it's already installed.
+  # A separate action is necessary to upgrade the plugin, so simply checking
+  # the plugin's presence is sufficient for idempotence.
+- name: Gather list of existing Logstash plugins.
+  command: /opt/logstash/bin/plugin list
+  changed_when: false
+  register: logstash_plugin_check_result
+
+- name: Install Logstash Riemann plugin.
+  command: /opt/logstash/bin/plugin install logstash-output-riemann
+  when: "'logstash-output-riemann' not in logstash_plugin_check_result.stdout"
+
 - name: Create Logstash config directories.
   file:
     path: "/etc/logstash/{{ item }}"
