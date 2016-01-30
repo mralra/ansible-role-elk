@@ -8,9 +8,10 @@ elk_nginx_user: "www-data"
 kibana_version: "4.3.1"
 
 # Provide ability to disable the snapshot functionality. It's not well
-# tested, so "false" would be a sane default, but it's useful during testing
-# when rebuilding test VMs frequently.
-elasticsearch_snapshot: true
+# tested, so leaving false as the default now. If set to true on a first
+# run, probably should add `meta: flush_handlers` prior to running to ensure
+# the `path.repo:` variable is recognized by the running elasticsearch service..
+elasticsearch_snapshot: false
 
 elasticsearch_snapshot_directory: /var/lib/elasticsearch/backups
 elasticsearch_snapshot_repository: es_backup
