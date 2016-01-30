@@ -16,8 +16,8 @@
     copy: no
     src: /opt/kibana-{{ kibana_version }}-linux-x64.tar.gz
     dest: /opt/
-    owner: "{{ kibana_user }}"
-    group: "{{ kibana_user }}"
+    owner: "{{ elk_nginx_user }}"
+    group: "{{ elk_nginx_user }}"
   when: kibana_directory_check.stat.exists == false
 
 - name: Symlink Kibana directory.
@@ -25,8 +25,8 @@
     state: link
     dest: /opt/kibana
     src: /opt/kibana-{{ kibana_version }}-linux-x64
-    owner: "{{ kibana_user }}"
-    group: "{{ kibana_user }}"
+    owner: "{{ elk_nginx_user }}"
+    group: "{{ elk_nginx_user }}"
 
 - name: Configure Kibana to listen only on localhost.
   lineinfile:

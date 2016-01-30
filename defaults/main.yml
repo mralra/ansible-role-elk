@@ -4,7 +4,7 @@
 # Eventually there should be parameters for version strings in
 # applications and whatnot, but right now all that's hard-coded. Sue me.
 
-kibana_user: "www-data"
+elk_nginx_user: "www-data"
 kibana_version: "4.3.1"
 
 # Provide ability to disable the snapshot functionality. It's not well
