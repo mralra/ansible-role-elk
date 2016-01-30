@@ -48,9 +48,8 @@
     - reload systemd
     - restart kibana
 
-- name: Enable kibana service.
+- name: Start kibana service.
   service:
     name: kibana
     state: running
-    enabled: yes
 

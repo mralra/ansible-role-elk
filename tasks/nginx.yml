@@ -41,8 +41,7 @@
     state: absent
   notify: restart nginx
 
-- name: Enable nginx service.
+- name: Start nginx service.
   service:
     name: nginx
     state: running
-    enabled: yes

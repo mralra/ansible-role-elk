@@ -29,5 +29,4 @@
   service:
     name: ufw
     state: running
-    enabled: yes
 

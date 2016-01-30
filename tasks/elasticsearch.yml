@@ -35,9 +35,8 @@
   notify:
     - restart elasticsearch
 
-- name: Enable elasticsearch service.
+- name: Start elasticsearch service.
   service:
     name: elasticsearch
     state: running
-    enabled: yes
 

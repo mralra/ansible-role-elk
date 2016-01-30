@@ -49,9 +49,8 @@
   with_items: logstash_patterns
   notify: restart logstash
 
-- name: Enable logstash service.
+- name: Start logstash service.
   service:
     name: logstash
     state: running
-    enabled: yes
 
