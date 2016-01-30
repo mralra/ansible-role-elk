@@ -29,3 +29,9 @@ elasticsearch_snapshot_name: "snapshot-{{ ansible_date_time.epoch }}"
 elk_network_interface: eth0
 
 elk_cluster_name: elk-logging
+
+# SSL is disabled by default. Set these vars to the fullpaths to SSL
+# certs you wish to use, and Nginx will force HTTPS connections.
+# You must place the SSL certs there in a separate play.
+elk_nginx_ssl_certificate: ""
+elk_nginx_ssl_certificate_key: ""

@@ -2,11 +2,14 @@ server {
     listen 0.0.0.0:80;
     server_name localhost;
 
+    {% if elk_nginx_ssl_certificate != ""
+       and elk_nginx_ssl_certificate_key != "" %}
     listen 0.0.0.0:443 ssl;
     return 301 https://$server_name$request_uri;
 
-    ssl_certificate /etc/ssl/freedom.crt;
-    ssl_certificate_key /etc/ssl/freedom.key;
+    ssl_certificate {{ elk_nginx_ssl_certificate }};
+    ssl_certificate_key {{ elk_nginx_ssl_certificate_key }};
+    {% endif %}
 
     location / {
         proxy_pass http://127.0.0.1:5601/;
