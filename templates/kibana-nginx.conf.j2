@@ -1,11 +1,28 @@
 server {
-    listen 0.0.0.0:80;
-    server_name localhost;
 
-    {% if elk_nginx_ssl_certificate != ""
-       and elk_nginx_ssl_certificate_key != "" %}
-    listen 0.0.0.0:443 ssl;
+    listen 0.0.0.0:80;
+    server_name {{ elk_nginx_server_name }};
+
+{% if elk_nginx_ssl_certificate != ""
+   and elk_nginx_ssl_certificate_key != "" %}
     return 301 https://$server_name$request_uri;
+{% else %}
+    location / {
+        proxy_pass http://127.0.0.1:5601/;
+        auth_basic "Login to Kibana web interface";
+        auth_basic_user_file /etc/nginx/conf.d/kibana.htpasswd;
+        proxy_redirect off;
+        proxy_buffering off;
+    }
+{% endif %}
+}
+
+{% if elk_nginx_ssl_certificate != ""
+   and elk_nginx_ssl_certificate_key != "" %}
+server {
+
+    listen 0.0.0.0:443 ssl;
+    server_name {{ elk_nginx_server_name }};
 
     ssl_certificate {{ elk_nginx_ssl_certificate }};
     ssl_certificate_key {{ elk_nginx_ssl_certificate_key }};
@@ -25,8 +42,6 @@ server {
     add_header X-Frame-Options DENY;
     add_header X-Content-Type-Options nosniff;
 
-    {% endif %}
-
     location / {
         proxy_pass http://127.0.0.1:5601/;
         auth_basic "Login to Kibana web interface";
@@ -35,3 +50,5 @@ server {
         proxy_buffering off;
     }
 }
+
+{% endif %}
