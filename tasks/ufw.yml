@@ -5,6 +5,14 @@
     name: ufw
     state: installed
 
+- name: Allow SSH access to logserver.
+  ufw:
+    rule: allow
+    proto: tcp
+    from_ip: any
+    port: 22
+  notify: restart ufw
+
 - name: Allow access to Kibana web interface from anywhere.
   ufw:
     rule: allow
