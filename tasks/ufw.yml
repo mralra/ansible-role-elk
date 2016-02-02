@@ -32,6 +32,10 @@
     port: 5000
   notify: restart ufw
   with_items: groups.logclients
+  # Using conditional to avoid undefined failure if facts haven't been gathered from logclients.
+  # Ansible v2 interprets args to `with_items` dynamically, which introduces the error.
+  # Make sure to include a gather_facts play on all logclients prior to running this role.
+  when: hostvars[item]['ansible_'+elk_network_interface] is defined
 
 - name: Ensure ufw is running.
   service:
