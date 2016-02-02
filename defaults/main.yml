@@ -42,3 +42,7 @@ elk_nginx_server_name: localhost
 elk_kibana_username: kibana
 elk_kibana_password: kibana
 
+
+# Running under grsecurity requires disabling MEMPROTECT on the Java and NodeJS binaries.
+elk_disable_memprotect: false
+
