@@ -42,6 +42,10 @@ elk_nginx_server_name: localhost
 elk_kibana_username: kibana
 elk_kibana_password: kibana
 
+# Override to change the landing page, e.g. a custom dashboard:
+# "dashboard/Your-Dashboard-Name". You must replace whitespace in
+# dashboard names with hyphens, since Kibana expects it.
+elk_kibana_default_app: discover
 
 # Running under grsecurity requires disabling MEMPROTECT on the Java and NodeJS binaries.
 elk_disable_memprotect: false

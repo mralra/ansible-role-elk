@@ -42,6 +42,15 @@
   notify:
     - restart kibana
 
+- name: Set custom Kibana landing page.
+  lineinfile:
+    dest: /opt/kibana/config/kibana.yml
+    regexp: '^kibana\.defaultAppId:'
+    line: 'kibana.defaultAppId: "{{ elk_kibana_default_app }}"'
+    state: present
+  notify:
+    - restart kibana
+
 - name: Create Kibana systemd service file.
   template:
     src: kibana.service.j2
