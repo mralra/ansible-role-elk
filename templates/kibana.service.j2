@@ -8,7 +8,7 @@ Environment=CONFIG_PATH=/opt/kibana/config/kibana.yml
 Environment=NODE_ENV=production
 # Workaround to prevent OOM errors with kibana/node. Should be fixed in v4.4.
 # Details: https://github.com/elastic/kibana/issues/5170
-Environment=NODE_OPTIONS="--max-old-space-size=200" bin/kibana
+Environment=NODE_OPTIONS="--max-old-space-size=200"
 ExecStart=/opt/kibana/node/bin/node /opt/kibana/src/cli
 
 [Install]
