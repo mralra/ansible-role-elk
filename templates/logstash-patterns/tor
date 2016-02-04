@@ -1,0 +1,3 @@
+TOR_UPTIME \d+ days \d+:\d+ hours
+TOR_BANDWIDTH [\d.]+\s\w+
+TOR_LOG_PREFIX %{SYSLOGTIMESTAMP:timestamp} \[(?<message_type>\w+)\]

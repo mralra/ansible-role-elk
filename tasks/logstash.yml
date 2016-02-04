@@ -44,23 +44,26 @@
 
 - name: Copy Logstash patterns.
   template:
-    src: "{{ item.src }}"
-    dest: "/etc/logstash/patterns.d/{{ item.dest }}"
+    src: "{{ item }}"
+    dest: "/etc/logstash/patterns.d/{{ item | basename }}"
     owner: root
     group: root
     mode: "0644"
-  with_items: logstash_patterns
+  with_fileglob:
+    - "../templates/logstash-patterns/*"
   notify: restart logstash
 
 - name: Copy (and verify) Logstash filters.
   template:
-    src: "{{ item.src }}"
-    dest: "/etc/logstash/conf.d/{{ item.dest }}"
+    src: "{{ item }}"
+    # Force .conf suffix. Assumes there's a dot somewhere in the filename.
+    dest: "/etc/logstash/conf.d/{{ (item | basename).split('.') | first + '.conf' }}"
     owner: root
     group: root
     mode: "0644"
     validate: "/opt/logstash/bin/logstash --configtest -f %s"
-  with_items: logstash_filters
+  with_fileglob:
+    - "../templates/logstash-configs/*"
   notify: restart logstash
 
 - name: Start logstash service.

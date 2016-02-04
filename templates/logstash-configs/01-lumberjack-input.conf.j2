@@ -1,0 +1,14 @@
+input {
+  # A note on terminology: "lumberjack" was the original name for the logstash-forwarder
+  # client software, but was renamed for clarity. The logstash-forwarder client is deprecated
+  # as of Q4 2015, to be replaced by the "filebeat" client. The name "lumberjack" is still
+  # reserved for the Logstash input processor, and so is correct in this context.
+  # See docs here: https://www.elastic.co/guide/en/logstash/master/plugins-inputs-lumberjack.html
+  lumberjack {
+    port => 5000
+    type => "logs"
+    ssl_certificate => "/etc/pki/tls/certs/{{ ssl_certificate_basename | default('logstash-client') }}.crt"
+    ssl_key => "/etc/pki/tls/private/{{ ssl_certificate_basename | default('logstash-client') }}.key"
+  }
+}
+

@@ -1,0 +1,13 @@
+output {
+  riemann {
+    host => "localhost"
+    port => "5555"
+    protocol => "tcp"
+    map_fields => true
+    riemann_event => {
+        host => "%{host}"
+        service => "%{type}"
+        description => "%{message}"
+    }
+  }
+}

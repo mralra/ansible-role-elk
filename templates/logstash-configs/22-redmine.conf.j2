@@ -1,0 +1,33 @@
+filter {
+  if [type] == "redmine" {
+    grok {
+      # Matches the following examples:
+      # Failed login for 'sadaskdhas' from 208.70.28.120 at 2016-01-12 23:23:51 UTC
+      # Failed login for 'kevin' from 50.1.125.58 at 2016-01-25 23:03:21 UTC
+      match => {"message" => "Failed login for '%{USERNAME:username}' from %{IP:ip} at %{TIMESTAMP_ISO8601}"}
+      add_tag => "failed_login"
+    }
+    grok {
+      # Successful authentication for 'kevin' from 208.70.28.120 at 2015-12-17 20:13:47 UTC
+      # Successful authentication for 'conor' from 24.61.12.145 at 2016-01-12 19:30:52 UTC
+      # Successful authentication for 'garrettr' from 50.1.125.58 at 2016-01-12 21:46:07 UTC
+      # Successful authentication for 'admin' from 50.1.125.58 at 2016-01-26 00:28:16 UTC
+      match => {"message" => "Successful authentication for '%{USERNAME:username}' from %{IP:ip} at %{TIMESTAMP_ISO8601}"}
+      add_tag => "successful_login"
+    }
+    grok {
+      # matches:
+      # MailHandler: received email from kevin@transparencytoolkit.org with Message-ID 56A7F6F1.2050403@transparencytoolkit.org: encrypted=true, valid=false, ignored=true
+      # MailHandler: received email from kevingallagher@gmail.com with Message-ID 56A7F7D9.1040807@gmail.com: encrypted=false, valid=false, ignored=true
+      match => {"message" => "MailHandler: received email from %{EMAILADDRESS} with Message-ID (?<message_id>[^\s]+): encrypted=(?<encrypted>(true|false)), valid=(?<valid>(true|false)), ignored=(?<ignored>(true|false))" }
+      add_tag => "email_received"
+    }
+    grok {
+      # Matches:
+      # No public key found for Garrett Robinson <garrett@freedom.press> (3)
+      # No public key found for Conor Schaefer <conor@freedom.press> (7)
+      match => {"message" => "No public key found for (?<fullname>[^<]+) <%{EMAILADDRESS}> \(%{BASE10NUM:key_id}\)" }
+      add_tag => "missing_public_key"
+    }
+  }
+}

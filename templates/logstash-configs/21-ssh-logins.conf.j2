@@ -1,0 +1,26 @@
+# Credit: https://gist.github.com/juanje/3081998#gistcomment-920908
+
+filter {
+  if [type] == "syslog" {
+    grok {
+      match => {"message" => "%{SYSLOGTIMESTAMP:timestamp} %{HOSTNAME:host_target} sshd\[%{BASE10NUM}\]: (Failed password for )?[iI]nvalid user %{USERNAME:username}( from %{IP:src_ip})?( port %{BASE10NUM:port})?" }
+      add_tag => "ssh_brute_force_attack"
+    }
+    grok {
+      match => { "message" => "%{SYSLOGTIMESTAMP:timestamp  } %{HOSTNAME:host_target} sudo: pam_unix\(sudo:auth\): authentication failure; logname=%{USERNAME:logname} uid=%{BASE10NUM:uid} euid=%{BASE10NUM:euid} tty=%{TTY:tty} ruser=%{USERNAME:ruser} rhost=(?:%{HOSTNAME:remote_host}|\s*) user=%{USERNAME:user}" }
+      add_tag => "sudo_auth_failure"
+    }
+    grok {
+      match => { "message" => "%{SYSLOGTIMESTAMP:timestamp} %{HOSTNAME:host_target} sshd\[%{BASE10NUM}\]: Failed password for %{USERNAME:username} from %{IP:src_ip} port %{BASE10NUM:port} ssh2" }
+      add_tag => "ssh_failed_login"
+    }
+    grok {
+      match => { "message" => "%{SYSLOGTIMESTAMP:timestamp} %{HOSTNAME:host_target} sshd\[%{BASE10NUM}\]: Accepted password for %{USERNAME:username} from %{IP:src_ip} port %{BASE10NUM:port} ssh2" }
+      add_tag => "ssh_successful_login"
+    }
+    grok {
+      match => { "message" => "%{SYSLOGTIMESTAMP:timestamp} %{HOSTNAME:host_target} sshd\[%{BASE10NUM}\]: pam_unix\(sshd:session\): session opened for user %{USERNAME:username} by \(uid=%{BASE10NUM:by_uid}\)" }
+      add_tag => "ssh_successful_login"
+    }
+  }
+}

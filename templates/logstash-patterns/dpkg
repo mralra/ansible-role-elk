@@ -1,0 +1,13 @@
+DPKG_TIMESTAMP %{TIMESTAMP_ISO8601:timestamp}
+DPKG_PACKAGE [-+~\.0-9a-zA-Z]+
+DPKG_ARCH [a-z0-9]+
+DPKG_PKGARCH %{DPKG_PACKAGE:package}(:%{DPKG_ARCH:arch})?
+DPKG_VERSION [-+~<>\.0-9a-zA-Z]+
+DPKG_ACTION0 (startup archives|startup packages|conffile)
+DPKG_ACTION1 (configure|remove|upgrade|purge|status (config-files|installed|not-installed|triggers-awaited|triggers-pending|unpacked|half-installed|half-configured))
+DPKG_ACTION2 (trigproc|upgrade)
+DPKG_0_VERSIONS %{DPKG_ACTION0:action}
+DPKG_1_VERSIONS (%{DPKG_ACTION1:action} %{DPKG_PKGARCH} %{DPKG_VERSION:version})$
+DPKG_2_VERSIONS (%{DPKG_ACTION2:action} %{DPKG_PKGARCH} %{DPKG_VERSION:version_from} %{DPKG_VERSION:version})$
+DPKG_LOG %{DPKG_TIMESTAMP} (%{DPKG_0_VERSIONS}|%{DPKG_1_VERSIONS}|%{DPKG_2_VERSIONS})
+
