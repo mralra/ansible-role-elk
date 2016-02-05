@@ -50,7 +50,7 @@
     group: root
     mode: "0644"
   with_fileglob:
-    - "../templates/logstash-patterns/*"
+    - logstash-patterns/*
   notify: restart logstash
 
 - name: Copy (and verify) Logstash filters.
@@ -63,7 +63,7 @@
     mode: "0644"
     validate: "/opt/logstash/bin/logstash --configtest -f %s"
   with_fileglob:
-    - "../templates/logstash-configs/*"
+    - logstash-configs/*
   notify: restart logstash
 
 - name: Start logstash service.
