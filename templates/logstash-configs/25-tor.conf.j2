@@ -2,33 +2,48 @@ filter {
   if [type] == "tor" {
     grok {
       patterns_dir => [ "/etc/logstash/patterns.d" ]
-      match => { "message" => "%{TOR_LOG_PREFIX} Heartbeat: Tor's uptime is %{TOR_UPTIME:tor_uptime_raw}, with %{BASE10NUM:open_circuits} circuits open. I've sent %{TOR_BANDWIDTH:sent} and received %{TOR_BANDWIDTH:received}." }
+      match => { "message" => "%{TOR_LOG}" }
       add_tag => "tor"
-      add_tag => "tor_heartbeat"
       remove_tag => "_grokparsefailure"
     }
+
     # Feb 02 21:47:18.000 [notice] Average packaged cell fullness: 59.127%. TLS write overhead: 6%
     grok {
       patterns_dir => [ "/etc/logstash/patterns.d" ]
-      match => { "message" => "%{TOR_LOG_PREFIX} Average packaged cell fullness: %{BASE10NUM:cell_fullness}\%. TLS write overhead: %{BASE10NUM:tls_overhead}\%" }
-      add_tag => "tor"
-      add_tag => "tor_fullness"
+      match => { "message_type" => "notice" }
+      add_tag => "tor_notice"
       remove_tag => "_grokparsefailure"
     }
+
+    # Feb 02 21:47:18.000 [notice] Average packaged cell fullness: 59.127%. TLS write overhead: 6%
+    grok {
+      patterns_dir => [ "/etc/logstash/patterns.d" ]
+      match => {
+        "message_type" => "notice"
+        "notice_type" => "Average packaged cell fullness"
+        "message" => "%{BASE10NUM:cell_fullness:float}\%. TLS write overhead: %{BASE10NUM:tls_overhead:float}\%"
+      }
+      add_tag => "tor_cell_fullness"
+      remove_tag => "_grokparsefailure"
+    }
+
+    # Feb 03 16:07:29.000 [info] routerlist_remove_old_routers(): We have 0 live routers and 0 old router descriptors.
+    grok {
+      patterns_dir => [ "/etc/logstash/patterns.d" ]
+      match => {
+        "message_type" => "info"
+        "info_type" => "routerlist_remove_old_routers"
+        "message" => "We have %{BASE10NUM:live_routers:int} live routers and %{BASE10NUM:old_routers:int} old router descriptors"
+      }
+      add_tag => "tor_routers"
+      remove_tag => "_grokparsefailure"
+    }
+
     # Feb 02 06:25:03.000 [notice] Received reload signal (hup). Reloading config and resetting internal state.
     grok {
       patterns_dir => [ "/etc/logstash/patterns.d" ]
       match => { "message" => "%{TOR_LOG_PREFIX} Received reload signal \(hup\)\. Reloading config and resetting internal state\." }
-      add_tag => "tor"
       add_tag => "tor_reloaded"
-      remove_tag => "_grokparsefailure"
-    }
-    # Feb 03 16:07:29.000 [info] routerlist_remove_old_routers(): We have 0 live routers and 0 old router descriptors.
-    grok {
-      patterns_dir => [ "/etc/logstash/patterns.d" ]
-      match => { "message" => "%{TOR_LOG_PREFIX} routerlist_remove_old_routers\(\): We have %{BASE10NUM:live_routers} live routers and %{BASE10NUM:old_routers} old router descriptors" }
-      add_tag => "tor"
-      add_tag => "tor_routers"
       remove_tag => "_grokparsefailure"
     }
   }

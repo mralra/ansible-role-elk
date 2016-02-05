@@ -1,3 +1,7 @@
-TOR_UPTIME \d+ days \d+:\d+ hours
-TOR_BANDWIDTH [\d.]+\s\w+
-TOR_LOG_PREFIX %{SYSLOGTIMESTAMP:timestamp} \[(?<message_type>\w+)\]
+TOR_UPTIME %{BASE10NUM} days %{BASE10NUM}:%{BASE10NUM} hours
+TOR_BANDWIDTH [%{BASE10NUM}.]+\s%{WORD}
+TOR_LOG_PREFIX %{SYSLOGTIMESTAMP:timestamp} \[%{WORD:message_type}\]
+TOR_LOG %{TOR_LOG_PREFIX} %{GREEDYDATA:message}
+TOR_INFO_LOG %{TOR_LOG_PREFIX} %{WORD:action}(_*\(\))?: %{GREEDYDATA:message}
+TOR_NOTICE_TYPE [\w\s]+
+TOR_NOTICE_LOG %{TOR_LOG_PREFIX} %{TOR_NOTICE_TYPE:notice_type}: %{GREEDYDATA:message}
