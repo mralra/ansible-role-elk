@@ -27,9 +27,10 @@
   changed_when: false
   register: logstash_plugin_check_result
 
-- name: Install Logstash Riemann plugin.
-  command: /opt/logstash/bin/plugin install logstash-output-riemann
-  when: "'logstash-output-riemann' not in logstash_plugin_check_result.stdout"
+- name: Install Logstash plugins.
+  command: /opt/logstash/bin/plugin install {{ item }}
+  when: item not in logstash_plugin_check_result.stdout
+  with_items: elk_logstash_plugins
 
 - name: Create Logstash config directories.
   file:

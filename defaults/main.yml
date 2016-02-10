@@ -26,6 +26,12 @@ elasticsearch_snapshot_initialization:
 # throws an invalid_snapshot_name error with the iso8601 format.
 elasticsearch_snapshot_name: "snapshot-{{ ansible_date_time.epoch }}"
 
+# Riemann plugin for alerting, de-dot filter for ElasticSearch v2 compatibility.
+# See: https://www.elastic.co/blog/introducing-the-de_dot-filter
+elk_logstash_plugins:
+  - logstash-output-riemann
+  - logstash-filter-de_dot
+
 # Interface used for firewall restrictions and IPv4 lookups
 elk_network_interface: eth0
 
