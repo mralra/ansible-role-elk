@@ -32,6 +32,21 @@
       line: 'network.host: "localhost"'
     - regexp: 'bootstrap\.mlockall:'
       line: 'bootstrap.mlockall: true'
+
+      # Massive reduction in load when cache field type set to "soft".
+      # Permits GC on cached index objects:
+      # See http://docs.oracle.com/javase/6/docs/api/java/lang/ref/SoftReference.html
+    - regexp: 'index\.cache\.field\.type:'
+      line: 'index.cache.field.type: soft'
+
+      # By default the ES cache is greedy. Let's set some sane limits to prevent OOMs.
+      # See http://blog.sematext.com/2012/05/17/elasticsearch-cache-usage/
+    - regexp: 'index\.cache\.field\.max_size:'
+      line: 'index.cache.field.max_size: 50000'
+
+    - regexp: 'index\.cache\.field\.expire:'
+      line: 'index.cache.field.expire: 10m'
+
       # Force presence of snapshot config line, even though snapshots are disabled by default.
       # Doing this to prevent a failed snapshot action on the first attempt, since the handlers
       # will not have been run yet. Flushing the handlers may be a more elegant solution.
