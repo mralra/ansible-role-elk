@@ -11,6 +11,21 @@
     path: /opt/kibana-{{ kibana_version }}-linux-x64
   register: kibana_directory_check
 
+  # It's important to configure the init file first, since it notifies daemon-reload.
+  # This task must come before any task in the same play that will notify `restart kibana`,
+  # since Ansible queues handlers in the order they were notified. We want to ensure that if
+  # kibana is being restarted AND the service file changed, daemon-reload runs first.
+- name: Create Kibana systemd service file.
+  template:
+    src: kibana.service.j2
+    dest: /etc/systemd/system/kibana.service
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    - reload systemd
+    - restart kibana
+
 - name: Extract Kibana tarball.
   unarchive:
     copy: no
@@ -44,17 +59,6 @@
     line: 'kibana.defaultAppId: "{{ elk_kibana_default_app }}"'
     state: present
   notify:
-    - restart kibana
-
-- name: Create Kibana systemd service file.
-  template:
-    src: kibana.service.j2
-    dest: /etc/systemd/system/kibana.service
-    owner: root
-    group: root
-    mode: "0644"
-  notify:
-    - reload systemd
     - restart kibana
 
 - name: Start kibana service.
