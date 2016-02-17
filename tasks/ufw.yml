@@ -37,8 +37,13 @@
   # Make sure to include a gather_facts play on all logclients prior to running this role.
   when: hostvars[item]['ansible_'+elk_network_interface] is defined
 
-- name: Ensure ufw is running.
+- name: Start ufw service.
   service:
     name: ufw
     state: running
+    enabled: yes
+
+- name: Enable ufw functionality.
+  ufw:
+    state: enabled
 

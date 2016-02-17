@@ -59,4 +59,5 @@
   service:
     name: elasticsearch
     state: running
+    enabled: yes
 

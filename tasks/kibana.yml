@@ -66,4 +66,5 @@
   service:
     name: kibana
     state: running
+    enabled: yes
 
