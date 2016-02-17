@@ -4,8 +4,3 @@
     name: openjdk-7-jre-headless
     state: present
 
-- name: Set PaX flags on java binary.
-  command: paxctl -Cm /usr/bin/java
-  when: elk_disable_memprotect == true
-  notify: restart elasticsearch
-

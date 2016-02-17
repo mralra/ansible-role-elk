@@ -53,6 +53,3 @@ elk_kibana_password: kibana
 # dashboard names with hyphens, since Kibana expects it.
 elk_kibana_default_app: discover
 
-# Running under grsecurity requires disabling MEMPROTECT on the Java and NodeJS binaries.
-elk_disable_memprotect: false
-

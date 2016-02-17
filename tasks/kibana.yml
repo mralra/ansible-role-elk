@@ -28,11 +28,6 @@
     owner: "{{ elk_nginx_user }}"
     group: "{{ elk_nginx_user }}"
 
-- name: Set PaX flags on NodeJS binary.
-  command: paxctl -Cm /opt/kibana/node/bin/node
-  notify: restart kibana
-  when: elk_disable_memprotect == true
-
 - name: Configure Kibana to listen only on localhost.
   lineinfile:
     dest: /opt/kibana/config/kibana.yml
