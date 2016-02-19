@@ -19,5 +19,5 @@
   tags: ufw
 
 - include: snapshot.yml
-  when: elasticsearch_snapshot == true
+  when: elk_elasticsearch_snapshot == true
   tags: snapshot

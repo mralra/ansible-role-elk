@@ -11,20 +11,20 @@ kibana_version: "4.3.1"
 # tested, so leaving false as the default now. If set to true on a first
 # run, probably should add `meta: flush_handlers` prior to running to ensure
 # the `path.repo:` variable is recognized by the running elasticsearch service..
-elasticsearch_snapshot: false
+elk_elasticsearch_snapshot: false
 
-elasticsearch_snapshot_directory: /var/lib/elasticsearch/backups
-elasticsearch_snapshot_repository: es_backup
-elasticsearch_snapshot_initialization:
+elk_elasticsearch_snapshot_directory: /var/lib/elasticsearch/backups
+elk_elasticsearch_snapshot_repository: es_backup
+elk_elasticsearch_snapshot_initialization:
   type: fs
   settings:
-    location: "{{ elasticsearch_snapshot_directory }}"
+    location: "{{ elk_elasticsearch_snapshot_directory }}"
     compress: yes
   _hack: null
 
 # It'd be nice to use iso8601 instead epoch, but the ElasticSearch API
 # throws an invalid_snapshot_name error with the iso8601 format.
-elasticsearch_snapshot_name: "snapshot-{{ ansible_date_time.epoch }}"
+elk_elasticsearch_snapshot_name: "snapshot-{{ ansible_date_time.epoch }}"
 
 # Riemann plugin for alerting, de-dot filter for ElasticSearch v2 compatibility.
 # See: https://www.elastic.co/blog/introducing-the-de_dot-filter

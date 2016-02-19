@@ -51,7 +51,7 @@
       # Doing this to prevent a failed snapshot action on the first attempt, since the handlers
       # will not have been run yet. Flushing the handlers may be a more elegant solution.
     - regexp: 'path\.repo:'
-      line: 'path.repo: {{ elasticsearch_snapshot_directory }}'
+      line: 'path.repo: {{ elk_elasticsearch_snapshot_directory }}'
   notify:
     - restart elasticsearch
 
