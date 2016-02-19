@@ -22,4 +22,6 @@
   uri:
     url: "http://localhost:9200/_snapshot/{{ elk_elasticsearch_snapshot_repository }}/{{ elk_elasticsearch_snapshot_name }}?wait_for_completion=true"
     method: PUT
-
+  # Would be better to inspect the JSON returned by the request, but running `uri`
+  # in this fashion is essentially the same as `command`, so reporting changed: true makes sense.
+  changed_when: yes
