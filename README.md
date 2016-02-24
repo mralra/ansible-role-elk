@@ -56,6 +56,12 @@ Use the role in a playbook like this:
       elk_kibana_password: WowWhatAStrongPassword4
 ```
 
+## Adding visualizations
+
+The role does not yet create Kibana visualizations automatically. You can however
+import saved visualizations that ship with the role in `files/kibana-dashboards.json`.
+Go to **Settings -> Objects -> Import** in the Kibana UI and browse to the JSON file.
+
 ## Running the tests
 
 Tests are unmerged. Currently only Debian and Ubuntu are supported.
