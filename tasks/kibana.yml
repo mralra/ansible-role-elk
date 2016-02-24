@@ -1,14 +1,14 @@
 ---
 - name: Download Kibana tarball.
   get_url:
-    url: https://download.elastic.co/kibana/kibana/kibana-{{ kibana_version }}-linux-x64.tar.gz
-    dest: /opt/kibana-{{ kibana_version }}-linux-x64.tar.gz
+    url: https://download.elastic.co/kibana/kibana/kibana-{{ elk_kibana_version }}-linux-x64.tar.gz
+    dest: /opt/kibana-{{ elk_kibana_version }}-linux-x64.tar.gz
     # Don't download file every time, only if it doesn't exist.
     force: no
 
 - name: Check for existing Kibana installation.
   stat:
-    path: /opt/kibana-{{ kibana_version }}-linux-x64
+    path: /opt/kibana-{{ elk_kibana_version }}-linux-x64
   register: kibana_directory_check
 
   # It's important to configure the init file first, since it notifies daemon-reload.
@@ -29,7 +29,7 @@
 - name: Extract Kibana tarball.
   unarchive:
     copy: no
-    src: /opt/kibana-{{ kibana_version }}-linux-x64.tar.gz
+    src: /opt/kibana-{{ elk_kibana_version }}-linux-x64.tar.gz
     dest: /opt/
     owner: "{{ elk_nginx_user }}"
     group: "{{ elk_nginx_user }}"
@@ -39,7 +39,7 @@
   file:
     state: link
     dest: /opt/kibana
-    src: /opt/kibana-{{ kibana_version }}-linux-x64
+    src: /opt/kibana-{{ elk_kibana_version }}-linux-x64
     owner: "{{ elk_nginx_user }}"
     group: "{{ elk_nginx_user }}"
 

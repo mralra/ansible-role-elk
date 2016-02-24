@@ -1,11 +1,8 @@
 ---
 # defaults file for elk
 
-# Eventually there should be parameters for version strings in
-# applications and whatnot, but right now all that's hard-coded. Sue me.
-
 elk_nginx_user: "www-data"
-kibana_version: "4.4.1"
+elk_kibana_version: "4.4.1"
 
 # Provide ability to disable the snapshot functionality. It's not well
 # tested, so leaving false as the default now. If set to true on a first
