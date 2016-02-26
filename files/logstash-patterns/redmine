@@ -3,4 +3,4 @@ REDMINE_PLUGIN_INFO Processing by %{WORD:redmine_plugin}#plugins as HTML"
 REDMINE_FAILED_LOGIN Failed login for '%{USERNAME:username}' from %{IP:src_ip} at %{TIMESTAMP_ISO8601}
 REDMINE_SUCCESSFUL_LOGIN Successful authentication for '%{USERNAME:username}' from %{IP:src_ip} at %{TIMESTAMP_ISO8601}
 REDMINE_MAIL MailHandler: received email from %{EMAILADDRESS} with Message-ID (?<message_id>[^\s]+): encrypted=(?<encrypted>(true|false)), valid=(?<valid>(true|false)), ignored=(?<ignored>(true|false))
-REDMINE_MISSING_PUBKEY No public key found for (?<fullname>[^<]+) <%{EMAILADDRESS}> \(%{BASE10NUM:key_id}\)
+REDMINE_NO_PUBKEY No public key found for (?<fullname>[^<]+) <%{EMAILADDRESS}> \(%{BASE10NUM:key_id}\)
