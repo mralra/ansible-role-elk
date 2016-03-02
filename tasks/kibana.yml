@@ -61,9 +61,31 @@
   notify:
     - restart kibana
 
+- name: Create logfile for Kibana.
+  file:
+    path: "{{ elk_kibana_logfile }}"
+    state: file
+    owner: root
+    group: "{{ elk_nginx_user }}"
+    mode: "0660"
+  # The default value is 'stdout', which when running as a service dumps to syslog.
+  # Run a sanity check for a leading slash, then assume we have an absolute path and
+  # proceed with creating the logfile.
+  when: elk_kibana_logfile.startswith('/')
+  notify:
+    - restart kibana
+
+- name: Enable logging for Kibana.
+  lineinfile:
+    dest: /opt/kibana/config/kibana.yml
+    regexp: '^logging\.dest:'
+    line: 'logging.dest: "{{ elk_kibana_logfile }}"'
+    state: present
+  notify:
+    - restart kibana
+
 - name: Start kibana service.
   service:
     name: kibana
     state: running
     enabled: yes
-
