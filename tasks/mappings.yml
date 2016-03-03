@@ -1,0 +1,16 @@
+---
+- name: Set default ElasticSearch mappings for Logstash.
+  uri:
+    url: "http://localhost:9200/_template/logstash"
+    method: POST
+    body: "{{ lookup('file', 'elasticsearch-template-logstash-output.json') }}"
+    status_code: 200
+    body_format: json
+
+- name: Set default ElasticSearch mappings for Topbeat.
+  uri:
+    url: "http://localhost:9200/_template/topbeat"
+    method: POST
+    body: "{{ lookup('file', 'elasticsearch-template-topbeat.json') }}"
+    status_code: 200
+    body_format: json

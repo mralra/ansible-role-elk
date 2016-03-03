@@ -12,6 +12,9 @@
 - include: kibana.yml
   tags: kibana
 
+- include: mappings.yml
+  tags: mappings
+
 - include: nginx.yml
   tags: nginx
 
