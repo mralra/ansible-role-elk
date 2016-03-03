@@ -43,22 +43,6 @@
     owner: "{{ elk_nginx_user }}"
     group: "{{ elk_nginx_user }}"
 
-- name: Configure Kibana to listen only on localhost.
-  lineinfile:
-    dest: /opt/kibana/config/kibana.yml
-    regexp: '^server\.host'
-    line: 'server.host: "localhost"'
-    state: present
-  notify: restart kibana
-
-- name: Set custom Kibana landing page.
-  lineinfile:
-    dest: /opt/kibana/config/kibana.yml
-    regexp: '^kibana\.defaultAppId:'
-    line: 'kibana.defaultAppId: "{{ elk_kibana_default_app }}"'
-    state: present
-  notify: restart kibana
-
   # Two-pass approach to creating logfile idempotently. Create the empty logfile
   # if none exists (force: no), but to ensure permissions we need a second task.
 - name: Create logfile for Kibana.
@@ -85,12 +69,19 @@
   when: elk_kibana_logfile.startswith('/')
   notify: restart kibana
 
-- name: Enable logging for Kibana.
+- name: Update Kibana config file.
   lineinfile:
     dest: /opt/kibana/config/kibana.yml
-    regexp: '^logging\.dest:'
-    line: 'logging.dest: "{{ elk_kibana_logfile }}"'
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
     state: present
+  with_items:
+    - regexp: '^server\.host'
+      line: 'server.host: "localhost"'
+    - regexp: '^kibana\.defaultAppId:'
+      line: 'kibana.defaultAppId: "{{ elk_kibana_default_app }}"'
+    - regexp: '^logging\.dest:'
+      line: 'logging.dest: "{{ elk_kibana_logfile }}"'
   notify: restart kibana
 
 - name: Start kibana service.
