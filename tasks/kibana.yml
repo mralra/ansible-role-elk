@@ -49,8 +49,7 @@
     regexp: '^server\.host'
     line: 'server.host: "localhost"'
     state: present
-  notify:
-    - restart kibana
+  notify: restart kibana
 
 - name: Set custom Kibana landing page.
   lineinfile:
@@ -58,22 +57,33 @@
     regexp: '^kibana\.defaultAppId:'
     line: 'kibana.defaultAppId: "{{ elk_kibana_default_app }}"'
     state: present
-  notify:
-    - restart kibana
+  notify: restart kibana
 
+  # Two-pass approach to creating logfile idempotently. Create the empty logfile
+  # if none exists (force: no), but to ensure permissions we need a second task.
 - name: Create logfile for Kibana.
-  file:
-    path: "{{ elk_kibana_logfile }}"
-    state: file
+  copy:
+    dest: "{{ elk_kibana_logfile }}"
     owner: root
     group: "{{ elk_nginx_user }}"
     mode: "0660"
+    force: no
+    content: ""
   # The default value is 'stdout', which when running as a service dumps to syslog.
   # Run a sanity check for a leading slash, then assume we have an absolute path and
   # proceed with creating the logfile.
   when: elk_kibana_logfile.startswith('/')
-  notify:
-    - restart kibana
+  notify: restart kibana
+
+  # Force permissions on logfile, even if previous copy task backed off.
+- name: Set permissions on logfile for Kibana.
+  file:
+    path: "{{ elk_kibana_logfile }}"
+    owner: root
+    group: "{{ elk_nginx_user }}"
+    mode: "0660"
+  when: elk_kibana_logfile.startswith('/')
+  notify: restart kibana
 
 - name: Enable logging for Kibana.
   lineinfile:
@@ -81,8 +91,7 @@
     regexp: '^logging\.dest:'
     line: 'logging.dest: "{{ elk_kibana_logfile }}"'
     state: present
-  notify:
-    - restart kibana
+  notify: restart kibana
 
 - name: Start kibana service.
   service:
