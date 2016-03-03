@@ -106,5 +106,5 @@
   "settings": {
     "index.refresh_interval": "5s"
   },
-  "template": "topbeat-*"
+  "template": "logstash-*"
 }
