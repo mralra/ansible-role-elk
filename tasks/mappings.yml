@@ -1,4 +1,11 @@
 ---
+# The `uri` module requires httplib2, although allegedly Ansible v2.1 will drop the dependency.
+# The "snapshot" task list in this role also calls `uri`.
+- name: Install httplib2
+  apt:
+    name: python-httplib2
+    state: present
+
 - name: Set default ElasticSearch mappings for Logstash.
   uri:
     url: "http://localhost:9200/_template/logstash"

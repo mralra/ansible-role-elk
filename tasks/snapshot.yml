@@ -7,11 +7,6 @@
     owner: elasticsearch
     group: elasticsearch
 
-- name: Install httplib2
-  apt:
-    name: python-httplib2
-    state: present
-
 - name: Initialize ElasticSearch snapshot via API.
   uri:
     url: "http://localhost:9200/_snapshot/{{ elk_elasticsearch_snapshot_repository }}"
