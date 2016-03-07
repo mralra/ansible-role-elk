@@ -9,3 +9,5 @@ REDMINE_TIMESTAMP %{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day} %{TIME:time} %{
 REDMINE_REQUEST_COMPLETED Completed %{BASE10NUM:http_status_code} %{WORD:http_status_human_readable} in %{BASE10NUM:request_time}%{DATA:request_time_units} \(ActiveRecord: %{BASE10NUM:activerecord_time}%{DATA:activerecord_time_units}\)
 REDMINE_ISSUE_CREATED MailHandler: issue #%{BASE10NUM:issue_number} created by %{WORD:created_by}
 REDMINE_MIGRATION Migrating to %{WORD:table} \(%{BASE10NUM:item_count}\)
+REDMINE_RENDER \s*Rendered %{DATA:resource} \(%{BASE10NUM:load_time}%{DATA:load_time_units}\)
+REDMINE_REDIRECT \s*Redirected to %{DATA:url}
