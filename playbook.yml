@@ -1,0 +1,5 @@
+---
+- name: Test ELK role.
+  hosts: logserver
+  roles:
+    - role: ansible-role-elk
