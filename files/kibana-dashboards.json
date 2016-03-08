@@ -34,23 +34,6 @@
     }
   },
   {
-    "_id": "Glance-Dashboard",
-    "_type": "dashboard",
-    "_source": {
-      "title": "Glance Dashboard",
-      "hits": 0,
-      "description": "",
-      "panelsJSON": "[\n  {\n    \"col\": 1,\n    \"id\": \"Logs-by-type\",\n    \"panelIndex\": 1,\n    \"row\": 1,\n    \"size_x\": 3,\n    \"size_y\": 4,\n    \"type\": \"visualization\"\n  },\n  {\n    \"col\": 4,\n    \"id\": \"Tags-overview\",\n    \"panelIndex\": 2,\n    \"row\": 1,\n    \"size_x\": 3,\n    \"size_y\": 4,\n    \"type\": \"visualization\"\n  },\n  {\n    \"col\": 7,\n    \"id\": \"Logs-lines-indexed\",\n    \"panelIndex\": 3,\n    \"row\": 1,\n    \"size_x\": 3,\n    \"size_y\": 2,\n    \"type\": \"visualization\"\n  },\n  {\n    \"col\": 7,\n    \"id\": \"Map-of-Redmine-access\",\n    \"panelIndex\": 4,\n    \"row\": 3,\n    \"size_x\": 6,\n    \"size_y\": 5,\n    \"type\": \"visualization\"\n  },\n  {\n    \"id\": \"Redmine-access-by-IP\",\n    \"type\": \"visualization\",\n    \"panelIndex\": 5,\n    \"size_x\": 6,\n    \"size_y\": 3,\n    \"col\": 1,\n    \"row\": 5\n  }\n]",
-      "optionsJSON": "{\n  \"darkTheme\": true\n}",
-      "uiStateJSON": "{}",
-      "version": 1,
-      "timeRestore": false,
-      "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\n  \"filter\": [\n    {\n      \"query\": {\n        \"query_string\": {\n          \"query\": \"*\",\n          \"analyze_wildcard\": true\n        }\n      }\n    }\n  ]\n}"
-      }
-    }
-  },
-  {
     "_id": "SSH-overview",
     "_type": "dashboard",
     "_source": {
@@ -68,22 +51,36 @@
     }
   },
   {
-    "_id": "Process-metrics",
-    "_type": "search",
+    "_id": "Redmine",
+    "_type": "dashboard",
     "_source": {
-      "title": "Process metrics",
-      "description": "",
+      "title": "Redmine",
       "hits": 0,
-      "columns": [
-        "proc.name"
-      ],
-      "sort": [
-        "@timestamp",
-        "desc"
-      ],
+      "description": "",
+      "panelsJSON": "[{\"col\":1,\"id\":\"Map-of-Redmine-access\",\"panelIndex\":1,\"row\":1,\"size_x\":7,\"size_y\":4,\"type\":\"visualization\"},{\"col\":10,\"id\":\"Redmine-logins-by-username\",\"panelIndex\":3,\"row\":1,\"size_x\":3,\"size_y\":2,\"type\":\"visualization\"},{\"id\":\"Redmine-common-HTTP-statuses\",\"type\":\"visualization\",\"panelIndex\":4,\"size_x\":2,\"size_y\":2,\"col\":8,\"row\":1},{\"id\":\"Redmine-access-over-time\",\"type\":\"visualization\",\"panelIndex\":5,\"size_x\":7,\"size_y\":2,\"col\":1,\"row\":5}]",
+      "optionsJSON": "{\"darkTheme\":true}",
+      "uiStateJSON": "{\"P-4\":{\"vis\":{\"legendOpen\":false}}}",
       "version": 1,
+      "timeRestore": false,
       "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"tags: beats_input_raw_event AND _type: process\"}},\"filter\":[],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "Glance-Dashboard",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Glance Dashboard",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":1,\"id\":\"Logs-by-type\",\"panelIndex\":1,\"row\":1,\"size_x\":3,\"size_y\":4,\"type\":\"visualization\"},{\"col\":4,\"id\":\"Tags-overview\",\"panelIndex\":2,\"row\":1,\"size_x\":3,\"size_y\":4,\"type\":\"visualization\"},{\"col\":7,\"id\":\"Logs-lines-indexed\",\"panelIndex\":3,\"row\":1,\"size_x\":3,\"size_y\":2,\"type\":\"visualization\"},{\"id\":\"Parsing-failures-by-type\",\"type\":\"visualization\",\"panelIndex\":4,\"size_x\":3,\"size_y\":4,\"col\":10,\"row\":1}]",
+      "optionsJSON": "{\"darkTheme\":true}",
+      "uiStateJSON": "{}",
+      "version": 1,
+      "timeRestore": false,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
       }
     }
   },
@@ -108,14 +105,14 @@
     }
   },
   {
-    "_id": "Redmine-web-logs",
+    "_id": "Process-metrics",
     "_type": "search",
     "_source": {
-      "title": "Redmine web logs",
+      "title": "Process metrics",
       "description": "",
       "hits": 0,
       "columns": [
-        "_source"
+        "proc.name"
       ],
       "sort": [
         "@timestamp",
@@ -123,7 +120,7 @@
       ],
       "version": 1,
       "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"type: \\\"apache\\\" AND tags: \\\"redmine\\\"\",\"analyze_wildcard\":true}},\"filter\":[],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"tags: beats_input_raw_event AND _type: process\"}},\"filter\":[],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
       }
     }
   },
@@ -148,33 +145,10 @@
     }
   },
   {
-    "_id": "Disk-usage-by-host-2",
+    "_id": "Redmine-HTTP-status-codes",
     "_type": "search",
     "_source": {
-      "title": "Disk usage by host 2",
-      "description": "",
-      "hits": 0,
-      "columns": [
-        "fs.used_p",
-        "fs.device_name",
-        "host",
-        "type"
-      ],
-      "sort": [
-        "@timestamp",
-        "desc"
-      ],
-      "version": 1,
-      "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"index\":\"logstash-*\",\"filter\":[{\"meta\":{\"negate\":false,\"index\":\"logstash-*\",\"key\":\"fs.device_name\",\"value\":\"rootfs\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"fs.device_name\":{\"query\":\"rootfs\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"globalState\"}},{\"meta\":{\"negate\":false,\"index\":\"logstash-*\",\"key\":\"type\",\"value\":\"filesystem\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"type\":{\"query\":\"filesystem\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"globalState\"}}],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647},\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}}}"
-      }
-    }
-  },
-  {
-    "_id": "riemann-alerts",
-    "_type": "search",
-    "_source": {
-      "title": "riemann alerts",
+      "title": "Redmine HTTP status codes",
       "description": "",
       "hits": 0,
       "columns": [
@@ -186,63 +160,27 @@
       ],
       "version": 1,
       "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"index\":\"logstash-*\",\"filter\":[],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647},\"query\":{\"query_string\":{\"query\":\"tags: to_riemann OR tags: no_fs_info_found OR tags: found_rootfs\",\"analyze_wildcard\":true}}}"
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"type: redmine AND tags: request_completed\",\"analyze_wildcard\":true}},\"filter\":[],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
       }
     }
   },
   {
-    "_id": "Logs-by-type",
-    "_type": "visualization",
+    "_id": "Redmine-web-logs",
+    "_type": "search",
     "_source": {
-      "title": "Logs by type",
-      "visState": "{\"type\":\"pie\",\"params\":{\"addLegend\":true,\"addTooltip\":true,\"isDonut\":false,\"shareYAxis\":true},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"3\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"type\",\"size\":9,\"order\":\"desc\",\"orderBy\":\"_term\"}}],\"listeners\":{},\"title\":\"Logs by type\"}",
-      "uiStateJSON": "{}",
+      "title": "Redmine web logs",
       "description": "",
+      "hits": 0,
+      "columns": [
+        "_source"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
       "version": 1,
       "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}},\"filter\":[{\"meta\":{\"index\":\"logstash-*\",\"key\":\"tags\",\"value\":\"ansible_command\",\"disabled\":true,\"negate\":false,\"alias\":null},\"query\":{\"match\":{\"tags\":{\"query\":\"ansible_command\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}},{\"meta\":{\"index\":\"logstash-*\",\"key\":\"tags\",\"value\":\"_grokparsefailure\",\"disabled\":true,\"negate\":false,\"alias\":null},\"query\":{\"match\":{\"tags\":{\"query\":\"_grokparsefailure\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}]}"
-      }
-    }
-  },
-  {
-    "_id": "Tags-overview",
-    "_type": "visualization",
-    "_source": {
-      "title": "Tags overview",
-      "visState": "{\"type\":\"pie\",\"params\":{\"addLegend\":true,\"addTooltip\":true,\"isDonut\":false,\"shareYAxis\":true},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"tags\",\"size\":20,\"order\":\"desc\",\"orderBy\":\"_term\"}}],\"listeners\":{},\"title\":\"Tags overview\"}",
-      "uiStateJSON": "{}",
-      "description": "",
-      "version": 1,
-      "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}},\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":true,\"index\":\"logstash-*\",\"key\":\"tags\",\"negate\":false,\"value\":\"ansible_command\"},\"query\":{\"match\":{\"tags\":{\"query\":\"ansible_command\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":true,\"index\":\"logstash-*\",\"key\":\"tags\",\"negate\":false,\"value\":\"_grokparsefailure\"},\"query\":{\"match\":{\"tags\":{\"query\":\"_grokparsefailure\",\"type\":\"phrase\"}}}}]}"
-      }
-    }
-  },
-  {
-    "_id": "Logs-lines-indexed",
-    "_type": "visualization",
-    "_source": {
-      "title": "Logs lines indexed",
-      "visState": "{\"type\":\"metric\",\"params\":{\"fontSize\":60},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}}],\"listeners\":{},\"title\":\"Logs lines indexed\"}",
-      "uiStateJSON": "{}",
-      "description": "",
-      "version": 1,
-      "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
-      }
-    }
-  },
-  {
-    "_id": "Tor-logs-by-tag",
-    "_type": "visualization",
-    "_source": {
-      "title": "Tor logs by tag",
-      "visState": "{\"aggs\":[{\"id\":\"1\",\"params\":{},\"schema\":\"metric\",\"type\":\"count\"},{\"id\":\"2\",\"params\":{\"field\":\"tags\",\"order\":\"desc\",\"orderBy\":\"1\",\"size\":5},\"schema\":\"segment\",\"type\":\"terms\"}],\"listeners\":{},\"params\":{\"addLegend\":true,\"addTooltip\":true,\"isDonut\":false,\"shareYAxis\":true},\"type\":\"pie\",\"title\":\"Tor logs by tag\"}",
-      "uiStateJSON": "{}",
-      "description": "",
-      "version": 1,
-      "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"type: tor\"}},\"filter\":[]}"
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"type: redmine\",\"analyze_wildcard\":true}},\"filter\":[],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
       }
     }
   },
@@ -261,17 +199,44 @@
     }
   },
   {
-    "_id": "Redmine-access-by-IP",
+    "_id": "Logs-by-type",
     "_type": "visualization",
     "_source": {
-      "title": "Redmine access by IP",
-      "visState": "{\"type\":\"histogram\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"scale\":\"linear\",\"mode\":\"stacked\",\"times\":[],\"addTimeMarker\":false,\"defaultYExtents\":false,\"setYExtents\":false,\"yAxis\":{}},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"geoip.ip\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{},\"title\":\"Redmine access by IP\"}",
+      "title": "Logs by type",
+      "visState": "{\"type\":\"pie\",\"params\":{\"addLegend\":true,\"addTooltip\":true,\"isDonut\":false,\"shareYAxis\":true},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"3\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"type\",\"size\":9,\"order\":\"desc\",\"orderBy\":\"_term\"}}],\"listeners\":{},\"title\":\"Logs by type\"}",
       "uiStateJSON": "{}",
       "description": "",
-      "savedSearchId": "Redmine-web-logs",
       "version": 1,
       "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"filter\":[]}"
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}},\"filter\":[{\"meta\":{\"index\":\"logstash-*\",\"key\":\"tags\",\"value\":\"ansible_command\",\"disabled\":true,\"negate\":false,\"alias\":null},\"query\":{\"match\":{\"tags\":{\"query\":\"ansible_command\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}},{\"meta\":{\"index\":\"logstash-*\",\"key\":\"tags\",\"value\":\"_grokparsefailure\",\"disabled\":true,\"negate\":false,\"alias\":null},\"query\":{\"match\":{\"tags\":{\"query\":\"_grokparsefailure\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}]}"
+      }
+    }
+  },
+  {
+    "_id": "Tor-logs-by-tag",
+    "_type": "visualization",
+    "_source": {
+      "title": "Tor logs by tag",
+      "visState": "{\"aggs\":[{\"id\":\"1\",\"params\":{},\"schema\":\"metric\",\"type\":\"count\"},{\"id\":\"2\",\"params\":{\"field\":\"tags\",\"order\":\"desc\",\"orderBy\":\"1\",\"size\":5},\"schema\":\"segment\",\"type\":\"terms\"}],\"listeners\":{},\"params\":{\"addLegend\":true,\"addTooltip\":true,\"isDonut\":false,\"shareYAxis\":true},\"type\":\"pie\",\"title\":\"Tor logs by tag\"}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"type: tor\"}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "Map-of-SSH-access",
+    "_type": "visualization",
+    "_source": {
+      "title": "Map of SSH access",
+      "visState": "{\"title\":\"Map of SSH access\",\"type\":\"tile_map\",\"params\":{\"addTooltip\":true,\"heatBlur\":15,\"heatMaxZoom\":16,\"heatMinOpacity\":0.1,\"heatNormalizeData\":true,\"heatRadius\":25,\"isDesaturated\":true,\"mapType\":\"Scaled Circle Markers\",\"wms\":{\"enabled\":false,\"options\":{\"attribution\":\"Maps provided by USGS\",\"format\":\"image/png\",\"layers\":\"0\",\"styles\":\"\",\"transparent\":true,\"version\":\"1.3.0\"},\"url\":\"https://basemap.nationalmap.gov/arcgis/services/USGSTopo/MapServer/WMSServer\"}},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"geohash_grid\",\"schema\":\"segment\",\"params\":{\"field\":\"geoip.location\",\"autoPrecision\":true,\"mapZoom\":3,\"mapCenter\":[23.805449612314625,-28.4765625],\"precision\":2}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[],\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"tags: ssh\",\"analyze_wildcard\":true}},\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
       }
     }
   },
@@ -284,36 +249,6 @@
       "uiStateJSON": "{}",
       "description": "",
       "savedSearchId": "Process-metrics",
-      "version": 1,
-      "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"filter\":[]}"
-      }
-    }
-  },
-  {
-    "_id": "Map-of-Redmine-access",
-    "_type": "visualization",
-    "_source": {
-      "title": "Map of Redmine access",
-      "visState": "{\"aggs\":[{\"id\":\"1\",\"params\":{},\"schema\":\"metric\",\"type\":\"count\"},{\"id\":\"2\",\"params\":{\"autoPrecision\":true,\"field\":\"geoip.location\",\"precision\":2},\"schema\":\"segment\",\"type\":\"geohash_grid\"}],\"listeners\":{},\"params\":{\"addTooltip\":true,\"heatBlur\":15,\"heatMaxZoom\":16,\"heatMinOpacity\":0.1,\"heatNormalizeData\":true,\"heatRadius\":25,\"isDesaturated\":true,\"mapType\":\"Scaled Circle Markers\",\"wms\":{\"enabled\":false,\"options\":{\"attribution\":\"Maps provided by USGS\",\"format\":\"image/png\",\"layers\":\"0\",\"styles\":\"\",\"transparent\":true,\"version\":\"1.3.0\"},\"url\":\"https://basemap.nationalmap.gov/arcgis/services/USGSTopo/MapServer/WMSServer\"}},\"type\":\"tile_map\",\"title\":\"Map of Redmine access\"}",
-      "uiStateJSON": "{}",
-      "description": "",
-      "savedSearchId": "Redmine-web-logs",
-      "version": 1,
-      "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"filter\":[]}"
-      }
-    }
-  },
-  {
-    "_id": "Disk-usage-by-host2",
-    "_type": "visualization",
-    "_source": {
-      "title": "Disk usage by host2",
-      "visState": "{\"title\":\"New Visualization\",\"type\":\"line\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"showCircles\":true,\"smoothLines\":false,\"interpolate\":\"linear\",\"scale\":\"linear\",\"drawLinesBetweenPoints\":true,\"radiusRatio\":9,\"times\":[],\"addTimeMarker\":false,\"defaultYExtents\":false,\"setYExtents\":false,\"yAxis\":{}},\"aggs\":[{\"id\":\"1\",\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"fs.used_p\"}},{\"id\":\"2\",\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"auto\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{}}},{\"id\":\"3\",\"type\":\"terms\",\"schema\":\"group\",\"params\":{\"field\":\"host\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
-      "uiStateJSON": "{\"vis\":{\"legendOpen\":false}}",
-      "description": "",
-      "savedSearchId": "Disk-usage-by-host-2",
       "version": 1,
       "kibanaSavedObjectMeta": {
         "searchSourceJSON": "{\"filter\":[]}"
@@ -336,6 +271,63 @@
     }
   },
   {
+    "_id": "Redmine-access-by-IP",
+    "_type": "visualization",
+    "_source": {
+      "title": "Redmine access by IP",
+      "visState": "{\"type\":\"histogram\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"scale\":\"linear\",\"mode\":\"stacked\",\"times\":[],\"addTimeMarker\":false,\"defaultYExtents\":false,\"setYExtents\":false,\"yAxis\":{}},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"geoip.ip\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{},\"title\":\"Redmine access by IP\"}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "savedSearchId": "Redmine-web-logs",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "SSH-successful-logins-by-username",
+    "_type": "visualization",
+    "_source": {
+      "title": "SSH successful logins by username",
+      "visState": "{\"title\":\"SSH successful logins by username\",\"type\":\"pie\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"isDonut\":false},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"username\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"tags: ssh_success\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "Map-of-SSH-failed-logins",
+    "_type": "visualization",
+    "_source": {
+      "title": "Map of SSH failed logins",
+      "visState": "{\"title\":\"Map of SSH access\",\"type\":\"tile_map\",\"params\":{\"addTooltip\":true,\"heatBlur\":\"12\",\"heatMaxZoom\":\"7\",\"heatMinOpacity\":\"0.46\",\"heatNormalizeData\":true,\"heatRadius\":\"19\",\"isDesaturated\":true,\"mapType\":\"Heatmap\",\"wms\":{\"enabled\":false,\"options\":{\"attribution\":\"Maps provided by USGS\",\"format\":\"image/png\",\"layers\":\"0\",\"styles\":\"\",\"transparent\":true,\"version\":\"1.3.0\"},\"url\":\"https://basemap.nationalmap.gov/arcgis/services/USGSTopo/MapServer/WMSServer\"}},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"geohash_grid\",\"schema\":\"segment\",\"params\":{\"field\":\"geoip.location\",\"autoPrecision\":true,\"mapZoom\":4,\"mapCenter\":[42.391008609205045,-82.44140625],\"precision\":3}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[],\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"tags: ssh_failure\",\"analyze_wildcard\":true}},\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
+      }
+    }
+  },
+  {
+    "_id": "SSH-failures-over-time",
+    "_type": "visualization",
+    "_source": {
+      "title": "SSH failures over time",
+      "visState": "{\"title\":\"New Visualization\",\"type\":\"area\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"smoothLines\":false,\"scale\":\"linear\",\"interpolate\":\"linear\",\"mode\":\"stacked\",\"times\":[],\"addTimeMarker\":false,\"defaultYExtents\":false,\"setYExtents\":false,\"yAxis\":{}},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"auto\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{}}},{\"id\":\"3\",\"type\":\"terms\",\"schema\":\"group\",\"params\":{\"field\":\"host\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"tags: ssh_failure\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
     "_id": "Load-per-system",
     "_type": "visualization",
     "_source": {
@@ -347,34 +339,6 @@
       "version": 1,
       "kibanaSavedObjectMeta": {
         "searchSourceJSON": "{\"filter\":[]}"
-      }
-    }
-  },
-  {
-    "_id": "SSH-successful-logins",
-    "_type": "visualization",
-    "_source": {
-      "title": "SSH successful logins",
-      "visState": "{\"title\":\"New Visualization\",\"type\":\"metric\",\"params\":{\"fontSize\":60},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}}],\"listeners\":{}}",
-      "uiStateJSON": "{}",
-      "description": "",
-      "version": 1,
-      "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"tags: ssh_success\",\"analyze_wildcard\":true}},\"filter\":[]}"
-      }
-    }
-  },
-  {
-    "_id": "SSH-failed-logins",
-    "_type": "visualization",
-    "_source": {
-      "title": "SSH failed logins",
-      "visState": "{\"title\":\"SSH successful logins\",\"type\":\"metric\",\"params\":{\"fontSize\":60},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}}],\"listeners\":{}}",
-      "uiStateJSON": "{}",
-      "description": "",
-      "version": 1,
-      "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"tags: ssh_failure\",\"analyze_wildcard\":true}},\"filter\":[]}"
       }
     }
   },
@@ -393,16 +357,87 @@
     }
   },
   {
-    "_id": "Map-of-SSH-access",
+    "_id": "SSH-failed-logins-by-IP",
     "_type": "visualization",
     "_source": {
-      "title": "Map of SSH access",
-      "visState": "{\"title\":\"Map of SSH access\",\"type\":\"tile_map\",\"params\":{\"addTooltip\":true,\"heatBlur\":15,\"heatMaxZoom\":16,\"heatMinOpacity\":0.1,\"heatNormalizeData\":true,\"heatRadius\":25,\"isDesaturated\":true,\"mapType\":\"Scaled Circle Markers\",\"wms\":{\"enabled\":false,\"options\":{\"attribution\":\"Maps provided by USGS\",\"format\":\"image/png\",\"layers\":\"0\",\"styles\":\"\",\"transparent\":true,\"version\":\"1.3.0\"},\"url\":\"https://basemap.nationalmap.gov/arcgis/services/USGSTopo/MapServer/WMSServer\"}},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"geohash_grid\",\"schema\":\"segment\",\"params\":{\"field\":\"geoip.location\",\"autoPrecision\":true,\"mapZoom\":3,\"mapCenter\":[23.805449612314625,-28.4765625],\"precision\":2}}],\"listeners\":{}}",
+      "title": "SSH failed logins by IP",
+      "visState": "{\"title\":\"SSH failed logins by username\",\"type\":\"pie\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"isDonut\":false},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"src_ip\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
       "uiStateJSON": "{}",
       "description": "",
       "version": 1,
       "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"filter\":[],\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"tags: ssh\",\"analyze_wildcard\":true}},\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"tags: ssh_failure\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "SSH-successful-logins",
+    "_type": "visualization",
+    "_source": {
+      "title": "SSH successful logins",
+      "visState": "{\"title\":\"SSH successful logins\",\"type\":\"metric\",\"params\":{\"fontSize\":\"35\"},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"tags: ssh_success\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "Map-of-Redmine-access",
+    "_type": "visualization",
+    "_source": {
+      "title": "Map of Redmine access",
+      "visState": "{\"title\":\"Map of Redmine access\",\"type\":\"tile_map\",\"params\":{\"addTooltip\":true,\"heatBlur\":\"12\",\"heatMaxZoom\":\"7\",\"heatMinOpacity\":\"0.46\",\"heatNormalizeData\":true,\"heatRadius\":\"19\",\"isDesaturated\":true,\"mapType\":\"Heatmap\",\"wms\":{\"enabled\":false,\"options\":{\"attribution\":\"Maps provided by USGS\",\"format\":\"image/png\",\"layers\":\"0\",\"styles\":\"\",\"transparent\":true,\"version\":\"1.3.0\"},\"url\":\"https://basemap.nationalmap.gov/arcgis/services/USGSTopo/MapServer/WMSServer\"}},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"geohash_grid\",\"schema\":\"segment\",\"params\":{\"field\":\"geoip.location\",\"autoPrecision\":true,\"mapZoom\":2,\"mapCenter\":[14.774882506516272,5.2734375],\"precision\":2}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "savedSearchId": "Redmine-web-logs",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "SSH-failed-logins-by-username",
+    "_type": "visualization",
+    "_source": {
+      "title": "SSH failed logins by username",
+      "visState": "{\"title\":\"SSH successful logins by username\",\"type\":\"pie\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"isDonut\":false},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"username\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"tags: ssh_failure\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "Redmine-logins-by-username",
+    "_type": "visualization",
+    "_source": {
+      "title": "Redmine logins by username",
+      "visState": "{\"title\":\"SSH successful logins by username\",\"type\":\"pie\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"isDonut\":false},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"username\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"type: redmine\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "SSH-failed-logins",
+    "_type": "visualization",
+    "_source": {
+      "title": "SSH failed logins",
+      "visState": "{\"title\":\"SSH failed logins\",\"type\":\"metric\",\"params\":{\"fontSize\":\"35\"},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"tags: ssh_failure\",\"analyze_wildcard\":true}},\"filter\":[]}"
       }
     }
   },
@@ -411,7 +446,7 @@
     "_type": "visualization",
     "_source": {
       "title": "Ansible runs",
-      "visState": "{\"title\":\"New Visualization\",\"type\":\"metric\",\"params\":{\"fontSize\":60},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}}],\"listeners\":{}}",
+      "visState": "{\"title\":\"Ansible runs\",\"type\":\"metric\",\"params\":{\"fontSize\":\"35\"},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}}],\"listeners\":{}}",
       "uiStateJSON": "{}",
       "description": "",
       "version": 1,
@@ -421,16 +456,74 @@
     }
   },
   {
-    "_id": "SSH-successful-logins-by-username",
+    "_id": "Redmine-common-HTTP-statuses",
     "_type": "visualization",
     "_source": {
-      "title": "SSH successful logins by username",
-      "visState": "{\"title\":\"New Visualization\",\"type\":\"pie\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"isDonut\":false},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"username\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
+      "title": "Redmine common HTTP statuses",
+      "visState": "{\"title\":\"New Visualization\",\"type\":\"pie\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"isDonut\":false},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"http_status_code\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "savedSearchId": "Redmine-HTTP-status-codes",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "Redmine-access-over-time",
+    "_type": "visualization",
+    "_source": {
+      "title": "Redmine access over time",
+      "visState": "{\"title\":\"New Visualization\",\"type\":\"area\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"smoothLines\":false,\"scale\":\"linear\",\"interpolate\":\"linear\",\"mode\":\"stacked\",\"times\":[],\"addTimeMarker\":false,\"defaultYExtents\":false,\"setYExtents\":false,\"yAxis\":{}},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"auto\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{}}},{\"id\":\"3\",\"type\":\"terms\",\"schema\":\"group\",\"params\":{\"field\":\"username\",\"size\":7,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "savedSearchId": "Redmine-HTTP-status-codes",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "Tags-overview",
+    "_type": "visualization",
+    "_source": {
+      "title": "Tags overview",
+      "visState": "{\"title\":\"Tags overview\",\"type\":\"pie\",\"params\":{\"addLegend\":true,\"addTooltip\":true,\"isDonut\":false,\"shareYAxis\":true},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"tags\",\"size\":20,\"order\":\"desc\",\"orderBy\":\"_term\"}}],\"listeners\":{}}",
       "uiStateJSON": "{}",
       "description": "",
       "version": 1,
       "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"tags: ssh_success\",\"analyze_wildcard\":true}},\"filter\":[]}"
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"NOT tags: beats_input_raw_event\",\"analyze_wildcard\":true}},\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":true,\"index\":\"logstash-*\",\"key\":\"tags\",\"negate\":false,\"value\":\"ansible_command\"},\"query\":{\"match\":{\"tags\":{\"query\":\"ansible_command\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":true,\"index\":\"logstash-*\",\"key\":\"tags\",\"negate\":false,\"value\":\"_grokparsefailure\"},\"query\":{\"match\":{\"tags\":{\"query\":\"_grokparsefailure\",\"type\":\"phrase\"}}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "Logs-lines-indexed",
+    "_type": "visualization",
+    "_source": {
+      "title": "Logs lines indexed",
+      "visState": "{\"title\":\"Logs lines indexed\",\"type\":\"metric\",\"params\":{\"fontSize\":\"35\"},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "Parsing-failures-by-type",
+    "_type": "visualization",
+    "_source": {
+      "title": "Parsing failures by type",
+      "visState": "{\"title\":\"New Visualization\",\"type\":\"pie\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"isDonut\":false},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"significant_terms\",\"schema\":\"segment\",\"params\":{\"field\":\"tags.raw\",\"size\":5,\"exclude\":{\"pattern\":\"(_grokparsefailure|beats_input_codec_plain_applied)\"}}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"tags: _grokparsefailure\",\"analyze_wildcard\":true}},\"filter\":[]}"
       }
     }
   },
