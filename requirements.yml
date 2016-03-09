@@ -1,0 +1,3 @@
+---
+- src: https://github.com/conorsch/generate-ssl-cert
+  path: roles/generate-ssl-cert
