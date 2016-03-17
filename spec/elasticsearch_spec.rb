@@ -14,7 +14,7 @@ end
 describe package('elasticsearch') do
   it { should be_installed }
   # Might be a little aggressive to test for exact version number.
-  its('version') { should eq '2.2.0' }
+  its('version') { should >= '2.2.0' }
 end
 describe package('openjdk-7-jre-headless') do
   it { should be_installed }
@@ -36,14 +36,7 @@ describe service('elasticsearch') do
 end
 
 describe port(9200) do
-  it { should be_listening }
-  its('protocols') { should eq ['tcp'] }
-  its('processes') { should eq ['java'] }
-  # Although documented, the "addresses" attribute for the
-  # port resource type in inspec isn't actually implemented.
-  # Using a command below as a workaround
-  # its('addresses') { should include '127.0.0.1' }
-end
-describe command('ss -tl | grep 9200') do
-  its('stdout') { should match(/^LISTEN[\s\d]+127\.0\.0\.1:9200[\s*:]/) }
+  it { should be_listening.on('127.0.0.1') }
+  it { should be_listening.with('tcp') }
+  it { should_not be_listening.on('0.0.0.0') }
 end

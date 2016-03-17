@@ -36,16 +36,9 @@ describe service('logstash') do
   it { should be_running }
 end
 describe port(5000) do
-  it { should be_listening }
-  its('protocols') { should eq ['tcp'] }
-  its('processes') { should eq ['java'] }
-  # Although documented, the "addresses" attribute for the port
-  # resource type in inspec isn't actually implemented. Using a
-  # command below as a workaround
-  #  its('addresses') { should include '0.0.0.0' }
-end
-describe command('ss -tl | grep 5000') do
-  # Regular expressions are being finicky, may not be
-  # supported for stdout processing yet
-  its('stdout') { should match(/^LISTEN[\s\d]+\*:5000[\s*:]/) }
+  # Logstash is one of the few services on the logserver that
+  # that should accept external connections, rather than listening
+  # only on localhost.
+  it { should be_listening.on('0.0.0.0') }
+  it { should_not be_listening.on('127.0.0.1') }
 end
