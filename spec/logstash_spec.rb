@@ -35,10 +35,13 @@ describe service('logstash') do
   it { should be_enabled }
   it { should be_running }
 end
-describe port(5000) do
+
+describe command('netstat -tulpn | '\
+                 "awk '{ print $4 }' | grep -P ':5000$'") do
   # Logstash is one of the few services on the logserver that
   # that should accept external connections, rather than listening
   # only on localhost.
-  it { should be_listening.on('0.0.0.0') }
-  it { should_not be_listening.on('127.0.0.1') }
+  regex = /^(::|#{Regexp.quote('0.0.0.0')}):5000$/
+  its('stdout') { should match(regex) }
+  its('stdout') { should_not match(/#{Regexp.quote('127.0.0.1')}/) }
 end
