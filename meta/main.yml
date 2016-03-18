@@ -15,4 +15,5 @@ galaxy_info:
     - visualization
     - metrics
 dependencies:
-  - role: generate-ssl-cert
+  - role: freedomofpress.generate-ssl-cert
+    ssl_certificate_basename: logstash-client

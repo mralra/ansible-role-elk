@@ -24,8 +24,10 @@ vagrant:
           type: dhcp
           auto_config: true
       options:
-        raw_config_args:
-          - "vm.network 'forwarded_port', guest: 443, host: 4443"
+        memory: 2048
+      raw_config_args:
+        - "vm.network 'forwarded_port', guest: 443, host: 4443"
+        - "vm.network 'forwarded_port', guest: 80, host: 8080"
 
     - name: webserver
       ansible_groups:

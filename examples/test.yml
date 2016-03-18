@@ -1,5 +1,11 @@
 ---
 - name: Test ELK role.
   hosts: logserver
+  pre_tasks:
+    - name: Update apt cache.
+      apt:
+        update_cache: yes
+      become: yes
+
   roles:
     - role: ansible-role-elk

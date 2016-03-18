@@ -1,3 +1,4 @@
 ---
 - src: https://github.com/conorsch/generate-ssl-cert
-  path: roles/generate-ssl-cert
+  name: freedomofpress.generate-ssl-cert
+  path: roles/
