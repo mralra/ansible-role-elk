@@ -1,8 +1,0 @@
-name: elk
-title: Test all components of ELK stack
-maintainer: Conor Schaefer
-license: MIT
-summary: Verify that Elasticsearch, Logstash, and Kibana are configured
-version: 1.0.0
-supports:
-  - os-family: linux
