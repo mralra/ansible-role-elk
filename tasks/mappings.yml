@@ -21,3 +21,11 @@
     body: "{{ lookup('file', 'elasticsearch-template-topbeat.json') }}"
     status_code: 200
     body_format: json
+
+- name: Set default ElasticSearch mappings for Filebeat.
+  uri:
+    url: "http://localhost:9200/_template/filebeat"
+    method: POST
+    body: "{{ lookup('file', 'elasticsearch-template-filebeat.json') }}"
+    status_code: 200
+    body_format: json
