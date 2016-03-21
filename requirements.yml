@@ -1,4 +1,4 @@
 ---
-- src: https://github.com/conorsch/generate-ssl-cert
+- src: https://github.com/freedomofpress/ansible-role-generate-ssl-cert
   name: freedomofpress.generate-ssl-cert
   path: roles/
