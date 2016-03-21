@@ -82,7 +82,8 @@ molecule verify
 
 See the [Molecule] docs for more info.
 
-## Resources
+## Further reading
+### Setup
 
 * [Official ElasticSearch docs](https://www.elastic.co/guide/index.html)
 * [UCLA ELK configuration](https://www.itsecurity.ucla.edu/elk)
