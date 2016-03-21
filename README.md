@@ -94,6 +94,11 @@ See the [Molecule] docs for more info.
 * [Grok Constructor](http://grokconstructor.appspot.com/)
 * [How to develop Logstash configuration files](http://blog.comperiosearch.com/blog/2015/04/10/how-to-develop-logstash-configuration-files/)
 
+### Maintenance
+
+* [Elasticsearch Curator](https://www.elastic.co/guide/en/elasticsearch/client/curator/current/command-line.html)
+* [Elasticsearch zero-downtime reindexing](https://blog.codecentric.de/en/2014/09/elasticsearch-zero-downtime-reindexing-problems-solutions/)
+
 ## License
 MIT
 
