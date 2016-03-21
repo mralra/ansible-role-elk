@@ -6,14 +6,14 @@
 - include: elasticsearch.yml
   tags: elasticsearch
 
+- include: mappings.yml
+  tags: mappings
+
 - include: logstash.yml
   tags: logstash
 
 - include: kibana.yml
   tags: kibana
-
-- include: mappings.yml
-  tags: mappings
 
 - include: nginx.yml
   tags: nginx
