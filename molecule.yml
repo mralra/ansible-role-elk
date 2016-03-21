@@ -1,0 +1,30 @@
+---
+ansible:
+  verbose: vv
+
+vagrant:
+  platforms:
+    - name: wily64
+      box: ubuntu/wily64
+
+    - name: jessie64
+      box: debian/jessie64
+
+  providers:
+    - name: virtualbox
+      type: virtualbox
+      options:
+        memory: 2048
+
+  instances:
+    - name: logserver
+      ansible_groups:
+        - logserver
+        - logclients
+      interfaces:
+        - network_name: private_network
+          type: dhcp
+          auto_config: true
+      raw_config_args:
+        - "vm.network 'forwarded_port', guest: 443, host: 4443"
+        - "vm.network 'forwarded_port', guest: 80, host: 8080"

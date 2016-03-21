@@ -8,10 +8,15 @@ galaxy_info:
     - name: Debian
       versions:
         - jessie
+    - name: Ubuntu
+      versions:
+        - wily
   galaxy_tags:
     - monitoring
     - logging
     - security
     - visualization
     - metrics
-dependencies: []
+dependencies:
+  - role: freedomofpress.generate-ssl-cert
+    ssl_certificate_basename: logstash-client

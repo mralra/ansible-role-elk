@@ -1,0 +1,3 @@
+.molecule/
+roles/
+files/logstash-client.crt

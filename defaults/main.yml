@@ -50,4 +50,3 @@ elk_kibana_password: kibana
 # "dashboard/Your-Dashboard-Name". You must replace whitespace in
 # dashboard names with hyphens, since Kibana expects it.
 elk_kibana_default_app: discover
-
