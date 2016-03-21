@@ -60,3 +60,11 @@
     name: elasticsearch
     state: running
     enabled: yes
+  register: elasticsearch_service_start_result
+
+  # Wait a bit for the service to start if it wasn't running. Elasticsearch can take
+  # dozens of seconds to bootstrap itself.
+- name: Wait for elasticsearch service to start.
+  pause:
+    seconds: 20
+  when: elasticsearch_service_start_result.changed
