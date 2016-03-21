@@ -6,6 +6,7 @@ for alerting functionality.
 
 ## Requirements
 
+* [freedomofpress.generate-ssl-cert] role
 * 2GB of RAM for the logserver
 * logclients to ship logs
 
@@ -92,3 +93,4 @@ MIT
 
 [Molecule]: http://molecule.readthedocs.org/en/master/
 [ServerSpec]: http://serverspec.org/
+[freedomofpress.generate-ssl-cert]: https://github.com/freedomofpress/ansible-role-generate-ssl-cert
