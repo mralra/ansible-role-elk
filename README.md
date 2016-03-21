@@ -64,7 +64,22 @@ Go to **Settings -> Objects -> Import** in the Kibana UI and browse to the JSON 
 
 ## Running the tests
 
-Tests are unmerged. Currently only Debian and Ubuntu are supported.
+This role uses [Molecule] and [ServerSpec] for testing. To use it:
+
+```
+pip install molecule
+gem install serverspec
+molecule test
+```
+
+You can also run selective commands:
+
+```
+molecule idempotence
+molecule verify
+```
+
+See the [Molecule] docs for more info.
 
 ## Resources
 
@@ -74,3 +89,6 @@ Tests are unmerged. Currently only Debian and Ubuntu are supported.
 
 ## License
 MIT
+
+[Molecule]: http://molecule.readthedocs.org/en/master/
+[ServerSpec]: http://serverspec.org/
