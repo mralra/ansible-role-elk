@@ -19,6 +19,7 @@
   tags: nginx
 
 - include: ufw.yml
+  when: elk_configure_firewall == true
   tags: ufw
 
 - include: snapshot.yml
