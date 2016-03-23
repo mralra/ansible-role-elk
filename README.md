@@ -82,11 +82,22 @@ molecule verify
 
 See the [Molecule] docs for more info.
 
-## Resources
+## Further reading
+### Setup
 
 * [Official ElasticSearch docs](https://www.elastic.co/guide/index.html)
 * [UCLA ELK configuration](https://www.itsecurity.ucla.edu/elk)
 * [DigitalOcean guide to setting up ELK](https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elk-stack-on-ubuntu-14-04)
+
+### Developing custom filters
+* [Grok Debugger](http://grokdebug.herokuapp.com/)
+* [Grok Constructor](http://grokconstructor.appspot.com/)
+* [How to develop Logstash configuration files](http://blog.comperiosearch.com/blog/2015/04/10/how-to-develop-logstash-configuration-files/)
+
+### Maintenance
+
+* [Elasticsearch Curator](https://www.elastic.co/guide/en/elasticsearch/client/curator/current/command-line.html)
+* [Elasticsearch zero-downtime reindexing](https://blog.codecentric.de/en/2014/09/elasticsearch-zero-downtime-reindexing-problems-solutions/)
 
 ## License
 MIT
