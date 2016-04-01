@@ -55,6 +55,14 @@
   notify:
     - restart elasticsearch
 
+# sets it to roughly half of total system memory in gigabytes
+- name: Configure ElasticSearch heap size.
+  lineinfile:
+    dest: /etc/default/elasticsearch
+    regexp: "^ES_HEAP_SIZE"
+    line: "ES_HEAP_SIZE={{ ((ansible_memtotal_mb / 2) / 1024)| round | int }}g"
+    state: present
+
 - name: Start elasticsearch service.
   service:
     name: elasticsearch
