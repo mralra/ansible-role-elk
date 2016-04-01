@@ -1,2 +1,3 @@
 JITSI_VIDEOBRIDGE
-JITSI_RECEIVE_STREAM 
+JITSI_RECEIVE_STREAM Receive stream stats: %{GREEDYDATA:jitsi_rcv_stream_msg}
+
