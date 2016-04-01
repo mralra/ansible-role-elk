@@ -1,4 +1,4 @@
-JITSIVB_INFO JVB %{TIMESTAMP_ISO8601} %{WORD:jvb_debug_level}: \[%{WORD}\] %{DATA:jvb_java_function}\(\) %{GREEDYDATA:jvb_message}
-JITSIVB_RECEIVE_STREAM Receive stream stats: %{GREEDYDATA:jvb_rcv_stream_msg}
-JITSIVB_SLF4J SLF4J %{GREEDYDATA:jvb_slf4j_msg}
-JITSIVB_MULTILINE_TRACE \s+at %{GREEDYDATA:jvb_function_name}
+JITSI_INFO %{WORD:jitsi_component} %{TIMESTAMP_ISO8601} %{WORD:jitsi_debug_level}: \[%{WORD}\] %{DATA:jitsi_java_function}\(\) %{GREEDYDATA:jitsi_message}
+JITSI_RECEIVE_STREAM Receive stream stats: %{GREEDYDATA:jitsi_rcv_stream_msg}
+JITSI_SLF4J SLF4J %{GREEDYDATA:jitsi_slf4j_msg}
+JITSI_MULTILINE_TRACE %{GREEDYDATA:jitsi_multiline_trace}
