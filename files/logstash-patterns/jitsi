@@ -1,4 +1,4 @@
 JITSIVB_INFO JVB %{TIMESTAMP_ISO8601} %{WORD:jvb_debug_level}: \[%{WORD}\] %{DATA:jvb_java_function}\(\) %{GREEDYDATA:jvb_message}
 JITSIVB_RECEIVE_STREAM Receive stream stats: %{GREEDYDATA:jvb_rcv_stream_msg}
 JITSIVB_SLF4J SLF4J %{GREEDYDATA:jvb_slf4j_msg}
-
+JITSIVB_MULTILINE_TRACE \s+at %{GREEDYDATA:jvb_function_name}
