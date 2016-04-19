@@ -24,6 +24,29 @@ elk_elasticsearch_snapshot_initialization:
 # throws an invalid_snapshot_name error with the iso8601 format.
 elk_elasticsearch_snapshot_name: "snapshot-{{ ansible_date_time.epoch }}"
 
+# Limits to set in /etc/security/limits.conf. Make sure to copy the entire
+# list if overriding any of the individual elements.
+elk_elasticsearch_pam_limits:
+    - domain: elasticsearch
+      limit_item: memlock
+      limit_type: hard
+      value: unlimited
+
+    - domain: elasticsearch
+      limit_item: memlock
+      limit_type: soft
+      value: unlimited
+
+    - domain: elasticsearch
+      limit_item: nofile
+      limit_type: soft
+      value: 65535
+
+    - domain: elasticsearch
+      limit_item: nofile
+      limit_type: hard
+      value: 65535
+
 # Riemann plugin for alerting, de-dot filter for ElasticSearch v2 compatibility.
 # See: https://www.elastic.co/blog/introducing-the-de_dot-filter
 elk_logstash_plugins:
