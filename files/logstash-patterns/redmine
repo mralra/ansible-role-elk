@@ -11,4 +11,4 @@ REDMINE_ISSUE_CREATED MailHandler: issue #%{BASE10NUM:issue_number} created by %
 REDMINE_MIGRATION Migrating to %{WORD:table} \(%{BASE10NUM:item_count}\)
 REDMINE_RENDER \s*Rendered %{DATA:resource} \(%{BASE10NUM:load_time}%{DATA:load_time_units}\)
 REDMINE_REDIRECT \s*Redirected to %{DATA:url}
-REDMINE_REQUEST_STARTED Started %{WORD:http_action} "%{DATA:path}" for %{IP:src_ip} at %{REDMINE_TIMESTAMP}
+REDMINE_REQUEST_STARTED Started %{WORD:http_action} "%{DATA:path}" for %{IP:src_ip} at %{REDMINE_TIMESTAMP:redmine_timestamp}
