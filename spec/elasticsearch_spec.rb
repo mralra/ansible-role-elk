@@ -30,6 +30,18 @@ describe file('/etc/elasticsearch/elasticsearch.yml') do
   its('content') { should match(/^bootstrap\.mlockall: true/) }
 end
 
+# Expect the heap size to be half the available RAM in MB.
+#
+available_memory = host_inventory['memory']['total']
+desired_heap_size = available_memory.sub(/kB$/, '').to_i / 1024 / 2
+describe file('/etc/default/elasticsearch') do
+  it { should be_file }
+  its('owner') { should eq 'root' }
+  its('group') { should eq 'root' }
+  its('mode') { should eq '644' }
+  its('content') { should match(/^ES_HEAP_SIZE=#{desired_heap_size}m/) }
+end
+
 describe service('elasticsearch') do
   it { should be_running }
   it { should be_enabled }

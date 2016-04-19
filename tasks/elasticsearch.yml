@@ -62,7 +62,7 @@
 - name: Set fact for ElasticSearch heap size.
   set_fact:
     elasticsearch_heap_size: >-
-      {{ ((ansible_memtotal_mb / 2) | round | int) if ansible_memtotal_mb < 65536
+      {{ ((ansible_memtotal_mb / 2) | int) if ansible_memtotal_mb < 65536
       else 31744 }}
 
 - name: Configure ElasticSearch heap size.
