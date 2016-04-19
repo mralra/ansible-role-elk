@@ -55,6 +55,23 @@
   notify:
     - restart elasticsearch
 
+  # Set heap size to half of total system memory in megabytes,
+  # provided host has more than 1GB of RAM. Don't exceed 31GB, though:
+  # https://www.elastic.co/guide/en/elasticsearch/guide/current/heap-sizing.html
+  # Using MB rather than GB to prevent rounding mistakes for odd numbers.
+- name: Set fact for ElasticSearch heap size.
+  set_fact:
+    elasticsearch_heap_size: >-
+      {{ ((ansible_memtotal_mb / 2) | int) if ansible_memtotal_mb < 65536
+      else 31744 }}
+
+- name: Configure ElasticSearch heap size.
+  lineinfile:
+    dest: /etc/default/elasticsearch
+    regexp: "^ES_HEAP_SIZE"
+    line: "ES_HEAP_SIZE={{ elasticsearch_heap_size }}m"
+    state: present
+
 - name: Start elasticsearch service.
   service:
     name: elasticsearch
