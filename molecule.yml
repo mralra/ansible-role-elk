@@ -1,14 +1,15 @@
 ---
 ansible:
   verbose: vv
+  diff: yes
 
 vagrant:
   platforms:
-    - name: wily64
-      box: ubuntu/wily64
-
     - name: jessie64
       box: debian/jessie64
+
+    - name: wily64
+      box: ubuntu/wily64
 
   providers:
     - name: virtualbox
