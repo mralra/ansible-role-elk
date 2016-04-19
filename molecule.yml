@@ -1,6 +1,7 @@
 ---
 ansible:
   verbose: vv
+  diff: yes
 
 vagrant:
   platforms:
