@@ -1,0 +1,1 @@
+UFW_LOG %{SYSLOGTIMESTAMP:ufw_timestamp} %{DATA}: \[%{DATA}\] \[UFW %{WORD:ufw_action}\] IN=%{DATA:ufw_interface} OUT= MAC=%{DATA:ufw_mac} SRC=%{IP:ufw_src_ip} DST=%{IP:ufw_dest_ip} %{GREEDYDATA:ufw_tcp_opts} PROTO=%{WORD:ufw_protocol} SPT=%{INT:ufw_src_port} DPT=%{INT:ufw_dest_port} %{GREEDYDATA:ufw_tcp_opts}

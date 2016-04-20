@@ -1,5 +1,5 @@
-JITSI_INFO %{WORD:jitsi_component} %{TIMESTAMP_ISO8601} %{WORD:jitsi_debug_level}: \[%{WORD}\] %{DATA:jitsi_java_function}\(\) %{GREEDYDATA:jitsi_message}
+JITSI_INFO %{WORD:jitsi_component} %{TIMESTAMP_ISO8601:jitsi_timestamp} %{WORD:jitsi_debug_level}: \[%{WORD}\] %{DATA:jitsi_java_function}\(\) %{GREEDYDATA:jitsi_message}
 JITSI_RECEIVE_STREAM Receive stream stats: %{GREEDYDATA:jitsi_rcv_stream_msg}
 JITSI_SLF4J SLF4J %{GREEDYDATA:jitsi_slf4j_msg}
 JITSI_MULTILINE_TRACE %{GREEDYDATA:jitsi_multiline_trace}
-JITSI_PROSODY_LOG %{SYSLOGTIMESTAMP} %{WORD:prosody_component}\s+%{WORD:prosody_log_level}\s+%{GREEDYDATA:prosody_log_message}
+JITSI_PROSODY_LOG %{SYSLOGTIMESTAMP:prosody_timestamp} %{DATA:prosody_component}\s+%{WORD:prosody_log_level}\s+%{GREEDYDATA:prosody_log_message}
