@@ -84,6 +84,39 @@
       line: 'logging.dest: "{{ elk_kibana_logfile }}"'
   notify: restart kibana
 
+- name: Look up Kibana saved objects.
+  set_fact:
+    kibana_objects: "{{ lookup('file', role_path+'/files/kibana-dashboards.json') }}"
+
+- debug: var=kibana_objects
+
+- name: Import Kibana dashboards.
+  uri:
+    url: "http://localhost:9200/.kibana/dashboard/{{ item._id }}"
+    method: PUT
+    body: "{{ item._source | to_nice_json }}"
+    status_code: 200
+    body_format: json
+  with_items: "{{ kibana_objects|kibana_dashboards }}"
+
+- name: Import Kibana searches.
+  uri:
+    url: "http://localhost:9200/.kibana/search/{{ item._id }}"
+    method: PUT
+    body: "{{ item._source }}"
+    status_code: 200
+    body_format: json
+  with_items: "{{ kibana_objects|kibana_searches }}"
+
+- name: Import Kibana visualizations.
+  uri:
+    url: "http://localhost:9200/.kibana/visualization/{{ item._id }}"
+    method: PUT
+    body: "{{ item._source | to_nice_json }}"
+    status_code: 200
+    body_format: json
+  with_items: "{{ kibana_objects|kibana_visualizations }}"
+
 - name: Start kibana service.
   service:
     name: kibana
