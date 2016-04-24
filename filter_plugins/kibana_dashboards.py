@@ -2,8 +2,7 @@ import json
 
 
 def kibana_dashboards(kibana_json):
-    d = json.loads(kibana_json)
-    return [x for x in d if x['_type'] == 'dashboard']
+    return [x for x in kibana_json if x['_type'] == 'dashboard']
 
 
 def kibana_searches(kibana_json):
