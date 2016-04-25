@@ -94,6 +94,10 @@ See the [Molecule] docs for more info.
 * [Grok Constructor](http://grokconstructor.appspot.com/)
 * [How to develop Logstash configuration files](http://blog.comperiosearch.com/blog/2015/04/10/how-to-develop-logstash-configuration-files/)
 
+See the [examples/writing-filters](examples/writing-filters) directory in this repo
+for a preconfigured development environment. Copy that directory to a server with
+logstash installed, or use a Vagrant testing VM.
+
 ### Maintenance
 
 * [Elasticsearch Curator](https://www.elastic.co/guide/en/elasticsearch/client/curator/current/command-line.html)
