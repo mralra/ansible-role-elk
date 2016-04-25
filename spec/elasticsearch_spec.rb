@@ -42,6 +42,25 @@ describe file('/etc/default/elasticsearch') do
   its('content') { should match(/^ES_HEAP_SIZE=#{desired_heap_size}m/) }
 end
 
+describe file('/etc/security/limits.conf') do
+  it { should be_file }
+  its('owner') { should eq 'root' }
+  its('group') { should eq 'root' }
+  its('mode') { should eq '644' }
+  its('content') do
+    should match(/^elasticsearch\s+soft\s+memlock\s+unlimited$/)
+  end
+  its('content') do
+    should match(/^elasticsearch\s+hard\s+memlock\s+unlimited$/)
+  end
+  its('content') do
+    should match(/^elasticsearch\s+soft\s+nofile\s+65535$/)
+  end
+  its('content') do
+    should match(/^elasticsearch\s+hard\s+nofile\s+65535$/)
+  end
+end
+
 describe service('elasticsearch') do
   it { should be_running }
   it { should be_enabled }

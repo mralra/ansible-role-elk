@@ -72,6 +72,15 @@
     line: "ES_HEAP_SIZE={{ elasticsearch_heap_size }}m"
     state: present
 
+- name: Set PAM limits for elasticsearch user.
+  pam_limits:
+    domain: "{{ item.domain }}"
+    limit_item: "{{ item.limit_item }}"
+    limit_type: "{{ item.limit_type }}"
+    value: "{{ item.value }}"
+    backup: yes
+  with_items: "{{ elk_elasticsearch_pam_limits }}"
+
 - name: Start elasticsearch service.
   service:
     name: elasticsearch
