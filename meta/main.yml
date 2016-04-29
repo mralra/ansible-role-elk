@@ -33,3 +33,5 @@ dependencies:
         mode: "0640"
         owner: root
         group: logstash
+    ssl_certificate_dynamic_handlers:
+      - restart logstash
