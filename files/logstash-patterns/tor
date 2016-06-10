@@ -5,3 +5,4 @@ TOR_LOG %{TOR_LOG_PREFIX} %{GREEDYDATA:message}
 TOR_INFO_LOG %{TOR_LOG_PREFIX} %{WORD:action}(_*\(\))?: %{GREEDYDATA:message}
 TOR_NOTICE_TYPE [\w\s]+
 TOR_NOTICE_LOG %{TOR_LOG_PREFIX} %{TOR_NOTICE_TYPE:notice_type}: %{GREEDYDATA:message}
+TOR_HIDSERV_ATTEMPT %{TOR_LOG_PREFIX} rend_service_set_connection_addr_port\(\): No virtual port mapping exists for port %{INT:tor_hidserv_port} on service %{WORD:tor_hidserv_addr}
