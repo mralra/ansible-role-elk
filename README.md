@@ -13,7 +13,7 @@ for alerting functionality.
 ## Role variables
 
 ```yaml
-elk_nginx_user: "www-data"
+elk_nginx_user: "kibana"
 
 # Riemann plugin for alerting, de-dot filter for ElasticSearch v2 compatibility.
 # See: https://www.elastic.co/blog/introducing-the-de_dot-filter
