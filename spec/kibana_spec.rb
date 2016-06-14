@@ -1,24 +1,9 @@
 # encoding: utf-8
 require 'spec_helper'
 
-kibana_version = '4.4.1'
-
-describe file("/opt/kibana-#{kibana_version}-linux-x64.tar.gz") do
-  it { should exist }
-  it { should be_file }
-end
-
-describe file("/opt/kibana-#{kibana_version}-linux-x64") do
-  it { should exist }
-  it { should be_directory }
-  its('owner') { should eq 'www-data' }
-  its('group') { should eq 'www-data' }
-end
-
 describe file('/opt/kibana') do
   it { should exist }
-  it { should be_symlink }
-  it { should be_linked_to "/opt/kibana-#{kibana_version}-linux-x64" }
+  it { should be_directory }
 end
 
 describe file('/etc/systemd/system/kibana.service') do

@@ -2,7 +2,6 @@
 # defaults file for elk
 
 elk_nginx_user: "www-data"
-elk_kibana_version: "4.4.1"
 elk_kibana_logfile: "/var/log/kibana.log"
 
 # Provide ability to disable the snapshot functionality. It's not well

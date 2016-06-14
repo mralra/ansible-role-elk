@@ -1,15 +1,23 @@
 ---
-- name: Download Kibana tarball.
-  get_url:
-    url: https://download.elastic.co/kibana/kibana/kibana-{{ elk_kibana_version }}-linux-x64.tar.gz
-    dest: /opt/kibana-{{ elk_kibana_version }}-linux-x64.tar.gz
-    # Don't download file every time, only if it doesn't exist.
-    force: no
+- name: Add Kibana repo apt key.
+  apt_key:
+    url: https://packages.elastic.co/GPG-KEY-elasticsearch
+    state: present
 
-- name: Check for existing Kibana installation.
-  stat:
-    path: /opt/kibana-{{ elk_kibana_version }}-linux-x64
-  register: kibana_directory_check
+- name: Add Kibana apt repo.
+  apt_repository:
+    repo: "deb http://packages.elastic.co/kibana/4.5/debian stable main"
+    state: present
+  notify:
+    - reload systemd
+
+- name: Install Kibana.
+  apt:
+    name: kibana
+    state: latest
+  notify:
+    - reload systemd
+    - restart kibana
 
   # It's important to configure the init file first, since it notifies daemon-reload.
   # This task must come before any task in the same play that will notify `restart kibana`,
@@ -25,23 +33,6 @@
   notify:
     - reload systemd
     - restart kibana
-
-- name: Extract Kibana tarball.
-  unarchive:
-    copy: no
-    src: /opt/kibana-{{ elk_kibana_version }}-linux-x64.tar.gz
-    dest: /opt/
-    owner: "{{ elk_nginx_user }}"
-    group: "{{ elk_nginx_user }}"
-  when: kibana_directory_check.stat.exists == false
-
-- name: Symlink Kibana directory.
-  file:
-    state: link
-    dest: /opt/kibana
-    src: /opt/kibana-{{ elk_kibana_version }}-linux-x64
-    owner: "{{ elk_nginx_user }}"
-    group: "{{ elk_nginx_user }}"
 
   # Two-pass approach to creating logfile idempotently. Create the empty logfile
   # if none exists (force: no), but to ensure permissions we need a second task.
