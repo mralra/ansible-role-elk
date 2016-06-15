@@ -1,9 +1,4 @@
 ---
-- name: Add Logstash repo apt key.
-  apt_key:
-    url: https://packages.elastic.co/GPG-KEY-elasticsearch
-    state: present
-
 - name: Add Logstash apt repo.
   apt_repository:
     repo: "deb http://packages.elastic.co/logstash/2.2/debian stable main"

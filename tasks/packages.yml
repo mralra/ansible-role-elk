@@ -1,0 +1,5 @@
+---
+- name: Add Elastic repositories apt key.
+  apt_key:
+    url: https://packages.elastic.co/GPG-KEY-elasticsearch
+    state: present

@@ -3,6 +3,9 @@
 - include: java.yml
   tags: java
 
+- include: packages.yml
+  tags: apt
+
 - include: elasticsearch.yml
   tags: elasticsearch
 
