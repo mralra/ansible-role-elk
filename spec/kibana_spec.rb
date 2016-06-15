@@ -1,6 +1,12 @@
 # encoding: utf-8
 require 'spec_helper'
 
+kibana_version = '4.5'
+
+describe package('kibana') do
+  it { should be_installed }
+end
+
 describe file('/opt/kibana') do
   it { should exist }
   it { should be_directory }
