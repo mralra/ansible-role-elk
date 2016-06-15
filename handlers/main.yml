@@ -1,8 +1,27 @@
 ---
 # handlers file for elk
+
+# The daemon-reload handler must be declared BEFORE the handlers
+# it works in conjunction with. It's unintuitive, but Ansible runs
+# handlers in the order they are declared, not in the order they
+# are called (i.e. in `handlers/main.yml`, this file). See:
+# http://docs.ansible.com/ansible/glossary.html#notify
+- name: reload systemd
+  command: /bin/systemctl daemon-reload
+
+- name: restart ufw
+  service:
+    name: ufw
+    state: restarted
+
 - name: restart nginx
   service:
     name: nginx
+    state: restarted
+
+- name: restart elasticsearch
+  service:
+    name: elasticsearch
     state: restarted
 
 - name: restart logstash
@@ -13,17 +32,4 @@
 - name: restart kibana
   service:
     name: kibana
-    state: restarted
-
-- name: restart elasticsearch
-  service:
-    name: elasticsearch
-    state: restarted
-
-- name: reload systemd
-  command: /bin/systemctl daemon-reload
-
-- name: restart ufw
-  service:
-    name: ufw
     state: restarted
