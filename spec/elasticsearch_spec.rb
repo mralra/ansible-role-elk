@@ -40,6 +40,7 @@ describe file('/etc/default/elasticsearch') do
   its('group') { should eq 'root' }
   its('mode') { should eq '644' }
   its('content') { should match(/^ES_HEAP_SIZE=#{desired_heap_size}m/) }
+  its('content') { should match(/^MAX_LOCKED_MEMORY=unlimited$/) }
 end
 
 describe file('/etc/security/limits.conf') do

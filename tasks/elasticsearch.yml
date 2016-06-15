@@ -68,9 +68,15 @@
 - name: Configure ElasticSearch heap size.
   lineinfile:
     dest: /etc/default/elasticsearch
-    regexp: "^ES_HEAP_SIZE"
-    line: "ES_HEAP_SIZE={{ elasticsearch_heap_size }}m"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
     state: present
+  with_items:
+    - regexp: "^ES_HEAP_SIZE"
+      line: "ES_HEAP_SIZE={{ elasticsearch_heap_size }}m"
+    - regexp: "^MAX_LOCKED_MEMORY"
+      line: "MAX_LOCKED_MEMORY=unlimited"
+  notify: restart elasticsearch
 
 - name: Set PAM limits for elasticsearch user.
   pam_limits:
