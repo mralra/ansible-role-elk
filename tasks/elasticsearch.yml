@@ -78,6 +78,16 @@
       line: "MAX_LOCKED_MEMORY=unlimited"
   notify: restart elasticsearch
 
+- name: Raises memlock limits for elasticsearch in systemd config.
+  lineinfile:
+    dest: /usr/lib/systemd/system/elasticsearch.service
+    regexp: "^#?LimitMEMLOCK="
+    line: "LimitMEMLOCK=infinity"
+    state: present
+  notify:
+    - reload systemd
+    - restart elasticsearch
+
 - name: Set PAM limits for elasticsearch user.
   pam_limits:
     domain: "{{ item.domain }}"

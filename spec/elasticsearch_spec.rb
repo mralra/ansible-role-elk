@@ -30,6 +30,14 @@ describe file('/etc/elasticsearch/elasticsearch.yml') do
   its('content') { should match(/^bootstrap\.mlockall: true/) }
 end
 
+describe file('/usr/lib/systemd/system/elasticsearch.service') do
+  it { should be_file }
+  its('owner') { should eq 'root' }
+  its('group') { should eq 'root' }
+  its('mode') { should eq '644' }
+  its('content') { should match(/^LimitMEMLOCK=infinity$/) }
+end
+
 # Expect the heap size to be half the available RAM in MB.
 #
 available_memory = host_inventory['memory']['total']
