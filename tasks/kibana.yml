@@ -6,6 +6,20 @@
   notify:
     - reload systemd
 
+  # Previous versions of the role used a symlink to support tarball extraction.
+  # Let's provide a sane upgrade path and handle the edge case where it's still
+  # a symlink by converting it to a directory.
+- name: Check Kibana directory.
+  stat:
+    path: /opt/kibana
+  register: kibana_directory_check
+
+- name: Remove Kibana symlink.
+  file:
+    path: /opt/kibana
+    state: absent
+  when: kibana_directory_check.stat.islnk
+
 - name: Install Kibana.
   apt:
     name: kibana
