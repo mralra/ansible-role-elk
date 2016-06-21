@@ -28,10 +28,9 @@
     - reload systemd
     - restart kibana
 
-  # It's important to configure the init file first, since it notifies daemon-reload.
-  # This task must come before any task in the same play that will notify `restart kibana`,
-  # since Ansible queues handlers in the order they were notified. We want to ensure that if
-  # kibana is being restarted AND the service file changed, daemon-reload runs first.
+  # Overriding the default systemd service file that ships with the kibana
+  # apt package. The service file below was written when the role used
+  # a tarball extraction to deploy the kibana files.
 - name: Create Kibana systemd service file.
   template:
     src: kibana.service.j2
