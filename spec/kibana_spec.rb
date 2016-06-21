@@ -6,7 +6,7 @@ kibana_version = '4.5'
 describe file('/etc/apt/sources.list.d/'\
               'packages_elastic_co_kibana_4_5_debian.list') do
   it { should be_file }
-  its('mode') { should eq '644' }
+  its('mode') { should eq '420' }
   it { should be_owned_by 'root' }
   it { should be_grouped_into 'root' }
   repo_url = 'http://packages.elastic.co/kibana/4.5/debian'
