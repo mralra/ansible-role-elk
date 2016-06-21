@@ -48,7 +48,7 @@
   copy:
     dest: "{{ elk_kibana_logfile }}"
     owner: root
-    group: "{{ elk_nginx_user }}"
+    group: "{{ elk_kibana_user }}"
     mode: "0660"
     force: no
     content: ""
@@ -63,7 +63,7 @@
   file:
     path: "{{ elk_kibana_logfile }}"
     owner: root
-    group: "{{ elk_nginx_user }}"
+    group: "{{ elk_kibana_user }}"
     mode: "0660"
   when: elk_kibana_logfile.startswith('/')
   notify: restart kibana

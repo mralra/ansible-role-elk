@@ -3,7 +3,7 @@ Description=Kibana 4
 
 [Service]
 Type=simple
-User={{ elk_nginx_user }}
+User={{ elk_kibana_user }}
 Environment=CONFIG_PATH=/opt/kibana/config/kibana.yml
 Environment=NODE_ENV=production
 # Workaround to prevent OOM errors with kibana/node. Should be fixed in v4.4.
