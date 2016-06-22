@@ -25,6 +25,7 @@
 - name: Gather list of existing Logstash plugins.
   command: /opt/logstash/bin/plugin list
   changed_when: false
+  always_run: true
   register: logstash_plugin_check_result
 
 - name: Install Logstash plugins.
