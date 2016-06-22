@@ -1,20 +1,36 @@
 ---
-- name: Download Kibana tarball.
-  get_url:
-    url: https://download.elastic.co/kibana/kibana/kibana-{{ elk_kibana_version }}-linux-x64.tar.gz
-    dest: /opt/kibana-{{ elk_kibana_version }}-linux-x64.tar.gz
-    # Don't download file every time, only if it doesn't exist.
-    force: no
+- name: Add Kibana apt repo.
+  apt_repository:
+    repo: "deb http://packages.elastic.co/kibana/4.5/debian stable main"
+    state: present
+  notify:
+    - reload systemd
 
-- name: Check for existing Kibana installation.
+  # Previous versions of the role used a symlink to support tarball extraction.
+  # Let's provide a sane upgrade path and handle the edge case where it's still
+  # a symlink by converting it to a directory.
+- name: Check Kibana directory.
   stat:
-    path: /opt/kibana-{{ elk_kibana_version }}-linux-x64
+    path: /opt/kibana
   register: kibana_directory_check
 
-  # It's important to configure the init file first, since it notifies daemon-reload.
-  # This task must come before any task in the same play that will notify `restart kibana`,
-  # since Ansible queues handlers in the order they were notified. We want to ensure that if
-  # kibana is being restarted AND the service file changed, daemon-reload runs first.
+- name: Remove Kibana symlink.
+  file:
+    path: /opt/kibana
+    state: absent
+  when: kibana_directory_check.stat.islnk
+
+- name: Install Kibana.
+  apt:
+    name: kibana
+    state: latest
+  notify:
+    - reload systemd
+    - restart kibana
+
+  # Overriding the default systemd service file that ships with the kibana
+  # apt package. The service file below was written when the role used
+  # a tarball extraction to deploy the kibana files.
 - name: Create Kibana systemd service file.
   template:
     src: kibana.service.j2
@@ -26,30 +42,13 @@
     - reload systemd
     - restart kibana
 
-- name: Extract Kibana tarball.
-  unarchive:
-    copy: no
-    src: /opt/kibana-{{ elk_kibana_version }}-linux-x64.tar.gz
-    dest: /opt/
-    owner: "{{ elk_nginx_user }}"
-    group: "{{ elk_nginx_user }}"
-  when: kibana_directory_check.stat.exists == false
-
-- name: Symlink Kibana directory.
-  file:
-    state: link
-    dest: /opt/kibana
-    src: /opt/kibana-{{ elk_kibana_version }}-linux-x64
-    owner: "{{ elk_nginx_user }}"
-    group: "{{ elk_nginx_user }}"
-
   # Two-pass approach to creating logfile idempotently. Create the empty logfile
   # if none exists (force: no), but to ensure permissions we need a second task.
 - name: Create logfile for Kibana.
   copy:
     dest: "{{ elk_kibana_logfile }}"
     owner: root
-    group: "{{ elk_nginx_user }}"
+    group: "{{ elk_kibana_user }}"
     mode: "0660"
     force: no
     content: ""
@@ -64,7 +63,7 @@
   file:
     path: "{{ elk_kibana_logfile }}"
     owner: root
-    group: "{{ elk_nginx_user }}"
+    group: "{{ elk_kibana_user }}"
     mode: "0660"
   when: elk_kibana_logfile.startswith('/')
   notify: restart kibana

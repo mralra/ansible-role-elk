@@ -1,0 +1,13 @@
+---
+- name: Install Java.
+  apt:
+    name: openjdk-7-jre-headless
+    state: present
+
+# This GPG key is used for checking signatures on packages for all three
+# components of the ELK stack (elasticsearch, logstash, and kibana).
+# Therefore let's add it once and be done with it.
+- name: Add Elastic repositories apt key.
+  apt_key:
+    url: https://packages.elastic.co/GPG-KEY-elasticsearch
+    state: present

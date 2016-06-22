@@ -4,7 +4,7 @@ require 'spec_helper'
 describe file('/etc/apt/sources.list.d/'\
               'packages_elastic_co_logstash_2_2_debian.list') do
   it { should be_file }
-  its('mode') { should eq '644' }
+  its('mode') { should eq '420' }
   it { should be_owned_by 'root' }
   it { should be_grouped_into 'root' }
   repo_url = 'http://packages.elastic.co/logstash/2.2/debian'

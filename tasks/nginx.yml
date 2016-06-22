@@ -31,7 +31,8 @@
     password: "{{ elk_kibana_password }}"
     path: /etc/nginx/conf.d/kibana.htpasswd
     owner: root
-    group: "{{ elk_nginx_user }}"
+    # Assuming Debian 'www-data' web user for nginx.
+    group: www-data
     mode: "0640"
   notify: restart nginx
 
