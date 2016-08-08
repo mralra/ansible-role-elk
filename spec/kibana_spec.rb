@@ -23,7 +23,7 @@ describe file('/opt/kibana') do
   it { should be_directory }
   its('owner') { should eq 'root' }
   its('group') { should eq 'root' }
-  its('mode') { should eq '755' }
+  its('mode') { should eq '775' }
 
   # Intentionally redundant test for backwards compatibility. Prior versions
   # of the role set /opt/kibana to a symlink for tarball extraction.
