@@ -1,7 +1,7 @@
 ---
 - name: Add Kibana apt repo.
   apt_repository:
-    repo: "deb http://packages.elastic.co/kibana/4.5/debian stable main"
+    repo: "deb http://packages.elastic.co/kibana/4.6/debian stable main"
     state: present
   notify:
     - reload systemd
