@@ -26,7 +26,7 @@
 - name: Install Logstash plugins.
   command: /opt/logstash/bin/plugin install {{ item }}
   when: item not in logstash_plugin_check_result.stdout
-  with_items: elk_logstash_plugins
+  with_items: "{{ elk_logstash_plugins }}"
 
 - name: Create Logstash config directories.
   file:
