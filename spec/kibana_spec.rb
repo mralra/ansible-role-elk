@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'spec_helper'
 
-kibana_version = '4.5'
+kibana_version = '4.6'
 
 describe file('/etc/apt/sources.list.d/'\
               'packages_elastic_co_kibana_4_5_debian.list') do
