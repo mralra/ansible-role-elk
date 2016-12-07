@@ -76,3 +76,7 @@ elk_kibana_default_app: discover
 # Enable automatic configuration of IP whitelisting for "logclients".
 # Uses ufw. Disable if you're using a different role for firewall config.
 elk_configure_firewall: true
+
+# Allow downstream playbooks to utilize internal webserver configuration
+# Set this to true in order to skip over this role's nginx rollout
+elk_custom_nginx_config: false
