@@ -16,6 +16,7 @@
   tags: kibana
 
 - include: nginx.yml
+  when: elk_configure_nginx == true
   tags: nginx
 
 - include: ufw.yml
