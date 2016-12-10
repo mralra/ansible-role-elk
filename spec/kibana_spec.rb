@@ -4,12 +4,12 @@ require 'spec_helper'
 kibana_version = '4.6'
 
 describe file('/etc/apt/sources.list.d/'\
-              'packages_elastic_co_kibana_4_5_debian.list') do
+              'packages_elastic_co_kibana_4_6_debian.list') do
   it { should be_file }
   its('mode') { should eq '420' }
   it { should be_owned_by 'root' }
   it { should be_grouped_into 'root' }
-  repo_url = 'http://packages.elastic.co/kibana/4.5/debian'
+  repo_url = 'http://packages.elastic.co/kibana/4.6/debian'
   its('content') { should include "deb #{repo_url}" }
 end
 

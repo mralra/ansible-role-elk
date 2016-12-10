@@ -2,12 +2,12 @@
 require 'spec_helper'
 
 describe file('/etc/apt/sources.list.d/'\
-              'packages_elastic_co_logstash_2_2_debian.list') do
+              'packages_elastic_co_logstash_2_3_debian.list') do
   it { should be_file }
   its('mode') { should eq '420' }
   it { should be_owned_by 'root' }
   it { should be_grouped_into 'root' }
-  repo_url = 'http://packages.elastic.co/logstash/2.2/debian'
+  repo_url = 'http://packages.elastic.co/logstash/2.3/debian'
   its('content') { should include "deb #{repo_url}" }
 end
 
@@ -15,7 +15,7 @@ describe package('logstash') do
   it { should be_installed }
   # Might be a little aggressive to test for exact version number.
   # Seeing an oddly formatted version number; ElasticSearch is simply '2.1.1'.
-  its('version') { should >= '1:2.1.2-1' }
+  its('version') { should >= '1:2.3.4-1' }
 end
 
 describe file('/etc/logstash/conf.d') do
