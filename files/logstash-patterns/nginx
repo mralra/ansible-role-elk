@@ -1,0 +1,7 @@
+# Courtesy of the DigitalOcean guide at https://www.digitalocean.com/community/questions/logstash-nginx-and-httpd-logs
+NGUSERNAME [a-zA-Z\.\@\-\+_%]+
+NGUSER %{NGUSERNAME}
+NGINXACCESS %{IPORHOST:clientip} %{NGUSER:ident} %{NGUSER:auth} \[%{HTTPDATE:timestamp}\] "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:httpversion}" %{NUMBER:response} (?:%{NUMBER:bytes}|-) (?:"(?:%{URI:referrer}|-)"|%{QS:referrer}) %{QS:agent}
+
+# Custom, a bit hacky, but gets the job done.
+NGINXERROR %{DATA:date} %{DATA:time} \[%{WORD:type}\] %{DATA:error_number}: %{DATA:error_message}, client: %{IPORHOST:clientip}, server: %{IPORHOST:server}, request: %{QS:request}, host: "%{IPORHOST:host}"
