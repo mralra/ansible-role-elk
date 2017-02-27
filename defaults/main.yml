@@ -82,5 +82,7 @@ elk_configure_firewall: true
 elk_configure_nginx: true
 
 # Allow downstream playbooks to override patterns and filters fileglob list
-elk_logstash_patterns: logstash-patterns/*
-elk_logstash_filters: logstash-configs/*
+elk_logstash_patterns:
+  - logstash-patterns/*
+elk_logstash_filters: 
+  - logstash-configs/*
