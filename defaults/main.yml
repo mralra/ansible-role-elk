@@ -80,3 +80,7 @@ elk_configure_firewall: true
 # Allow downstream playbooks to utilize custom webserver configuration
 # Set this to false in order to skip over this role's nginx rollout
 elk_configure_nginx: true
+
+# Allow downstream playbooks to override patterns and filters fileglob list
+elk_logstash_patterns: logstash-patterns/*
+elk_logstash_filters: logstash-configs/*
