@@ -46,8 +46,7 @@
     owner: root
     group: root
     mode: "0644"
-  with_fileglob:
-    - logstash-patterns/*
+  with_fileglob: "{{ elk_logstash_patterns }}"
   notify: restart logstash
 
 - name: Copy (and verify) Logstash filters.
@@ -59,8 +58,7 @@
     group: root
     mode: "0644"
     validate: "/opt/logstash/bin/logstash --configtest -f %s"
-  with_fileglob:
-    - logstash-configs/*
+  with_fileglob: "{{ elk_logstash_filters }}"
   notify: restart logstash
 
 - name: Start logstash service.
