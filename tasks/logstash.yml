@@ -38,6 +38,7 @@
   with_items:
     - conf.d
     - patterns.d
+    - dat_files
 
 - name: Copy Logstash patterns.
   template:
@@ -48,6 +49,18 @@
     mode: "0644"
   with_fileglob: "{{ elk_logstash_patterns }}"
   notify: restart logstash
+
+- name: Copy any optional geoip database
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/logstash/dat_files/{{ item | basename }}"
+    owner: root
+    group: root
+    mode: "0644"
+  when: elk_logstash_geoipdbs != []
+  with_fileglob: "{{ elk_logstash_geoipdbs }}"
+  notify: restart logstash
+  tags: geoip_copy
 
 - name: Copy (and verify) Logstash filters.
   template:
