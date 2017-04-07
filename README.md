@@ -14,6 +14,49 @@ for alerting functionality.
 
 ```yaml
 elk_kibana_user: "kibana"
+elk_kibana_logfile: "/var/log/kibana.log"
+
+# Provide ability to disable the snapshot functionality. It's not well
+# tested, so leaving false as the default now. If set to true on a first
+# run, probably should add `meta: flush_handlers` prior to running to ensure
+# the `path.repo:` variable is recognized by the running elasticsearch service..
+elk_elasticsearch_snapshot: false
+
+elk_elasticsearch_snapshot_directory: /var/lib/elasticsearch/backups
+elk_elasticsearch_snapshot_repository: es_backup
+elk_elasticsearch_snapshot_initialization:
+  type: fs
+  settings:
+    location: "{{ elk_elasticsearch_snapshot_directory }}"
+    compress: yes
+  _hack: null
+
+# It'd be nice to use iso8601 instead epoch, but the ElasticSearch API
+# throws an invalid_snapshot_name error with the iso8601 format.
+elk_elasticsearch_snapshot_name: "snapshot-{{ ansible_date_time.epoch }}"
+
+# Limits to set in /etc/security/limits.conf. Make sure to copy the entire
+# list if overriding any of the individual elements.
+elk_elasticsearch_pam_limits:
+    - domain: elasticsearch
+      limit_item: memlock
+      limit_type: hard
+      value: unlimited
+
+    - domain: elasticsearch
+      limit_item: memlock
+      limit_type: soft
+      value: unlimited
+
+    - domain: elasticsearch
+      limit_item: nofile
+      limit_type: soft
+      value: 65535
+
+    - domain: elasticsearch
+      limit_item: nofile
+      limit_type: hard
+      value: 65535
 
 # Riemann plugin for alerting, de-dot filter for ElasticSearch v2 compatibility.
 # See: https://www.elastic.co/blog/introducing-the-de_dot-filter
@@ -42,6 +85,22 @@ elk_kibana_password: kibana
 # dashboard names with hyphens, since Kibana expects it.
 elk_kibana_default_app: discover
 
+# Enable automatic configuration of IP whitelisting for "logclients".
+# Uses ufw. Disable if you're using a different role for firewall config.
+elk_configure_firewall: true
+
+# Allow downstream playbooks to utilize custom webserver configuration
+# Set this to false in order to skip over this role's nginx rollout
+elk_configure_nginx: true
+
+# Allow downstream playbooks to override patterns and filters fileglob list
+elk_logstash_patterns:
+  - logstash-patterns/*
+elk_logstash_filters:
+  - logstash-configs/*
+
+# Declare fileglob of GeoIP databases to copy. Off by default.
+elk_logstash_geoipdbs: []
 ```
 
 ## Usage

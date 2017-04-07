@@ -84,5 +84,8 @@ elk_configure_nginx: true
 # Allow downstream playbooks to override patterns and filters fileglob list
 elk_logstash_patterns:
   - logstash-patterns/*
-elk_logstash_filters: 
+elk_logstash_filters:
   - logstash-configs/*
+
+# Declare fileglob of GeoIP databases to copy. Off by default.
+elk_logstash_geoipdbs: []
