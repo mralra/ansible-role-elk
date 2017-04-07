@@ -86,4 +86,6 @@ elk_logstash_patterns:
   - logstash-patterns/*
 elk_logstash_filters:
   - logstash-configs/*
+
+# Declare fileglob of GeoIP databases to copy. Off by default.
 elk_logstash_geoipdbs: []
