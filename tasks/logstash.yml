@@ -1,7 +1,7 @@
 ---
 - name: Add Logstash apt repo.
   apt_repository:
-    repo: "deb http://packages.elastic.co/logstash/2.3/debian stable main"
+    repo: "deb https://artifacts.elastic.co/packages/7.x/apt stable main"
     state: present
 
 - name: Install Logstash.
@@ -18,15 +18,15 @@
   # A separate action is necessary to upgrade the plugin, so simply checking
   # the plugin's presence is sufficient for idempotence.
 - name: Gather list of existing Logstash plugins.
-  command: /opt/logstash/bin/plugin list
+  command: /usr/share/logstash/bin/logstash-plugin list
   changed_when: false
-  always_run: true
+  check_mode: no
   register: logstash_plugin_check_result
 
 - name: Install Logstash plugins.
-  command: /opt/logstash/bin/plugin install {{ item }}
+  command: /usr/share/logstash/bin/logstash-plugin install {{ item }}
   when: item not in logstash_plugin_check_result.stdout
-  with_items: "{{ elk_logstash_plugins }}"
+  with_items: "{{elk_logstash_plugins}}"
 
 - name: Create Logstash config directories.
   file:
@@ -38,7 +38,6 @@
   with_items:
     - conf.d
     - patterns.d
-    - dat_files
 
 - name: Copy Logstash patterns.
   template:
@@ -47,19 +46,9 @@
     owner: root
     group: root
     mode: "0644"
-  with_fileglob: "{{ elk_logstash_patterns }}"
+  with_fileglob:
+    - logstash-patterns/*
   notify: restart logstash
-
-- name: Copy any optional geoip database
-  copy:
-    src: "{{ item }}"
-    dest: "/etc/logstash/dat_files/{{ item | basename }}"
-    owner: root
-    group: root
-    mode: "0644"
-  with_fileglob: "{{ elk_logstash_geoipdbs }}"
-  notify: restart logstash
-  tags: geoip_copy
 
 - name: Copy (and verify) Logstash filters.
   template:
@@ -69,12 +58,13 @@
     owner: root
     group: root
     mode: "0644"
-    validate: "/opt/logstash/bin/logstash --configtest -f %s"
-  with_fileglob: "{{ elk_logstash_filters }}"
+    validate: "/usr/share/logstash/bin/logstash --config.test_and_exit -f %s"
+  with_fileglob:
+    - logstash-configs/*
   notify: restart logstash
 
 - name: Start logstash service.
   service:
     name: logstash
-    state: running
+    state: started
     enabled: yes

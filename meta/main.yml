@@ -3,7 +3,7 @@ galaxy_info:
   description: Stands up ELK stack for log aggregation.
   company: Freedom of the Press Foundation (@freedomofpress)
   license: MIT
-  min_ansible_version: 1.9
+  min_ansible_version: 2.0
   platforms:
     - name: Debian
       versions:
@@ -17,21 +17,3 @@ galaxy_info:
     - security
     - visualization
     - metrics
-dependencies:
-  - role: freedomofpress.generate-ssl-cert
-    ssl_certificate_basename: logstash-client
-    ssl_certificate_create_users: ['logstash']
-    ssl_certificate_permissions_map:
-      basename: "{{ ssl_certificate_basename }}"
-      cert:
-        path: "/etc/logstash/{{ ssl_certificate_basename }}.crt"
-        mode: "0644"
-        owner: root
-        group: logstash
-      key:
-        path: "/etc/logstash/{{ ssl_certificate_basename }}.key"
-        mode: "0640"
-        owner: root
-        group: logstash
-    ssl_certificate_dynamic_handlers:
-      - restart logstash

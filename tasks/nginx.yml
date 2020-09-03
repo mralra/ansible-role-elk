@@ -38,12 +38,12 @@
 
 - name: Disable default Nginx site.
   file:
-    path: /etc/nginx/sites-available/default
+    path: /etc/nginx/sites-enabled/default
     state: absent
   notify: restart nginx
 
 - name: Start nginx service.
   service:
     name: nginx
-    state: running
+    state: started
     enabled: yes

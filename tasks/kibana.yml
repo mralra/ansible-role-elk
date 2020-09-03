@@ -1,24 +1,10 @@
 ---
 - name: Add Kibana apt repo.
   apt_repository:
-    repo: "deb http://packages.elastic.co/kibana/4.6/debian stable main"
+    repo: "deb https://artifacts.elastic.co/packages/7.x/apt stable main"
     state: present
   notify:
     - reload systemd
-
-  # Previous versions of the role used a symlink to support tarball extraction.
-  # Let's provide a sane upgrade path and handle the edge case where it's still
-  # a symlink by converting it to a directory.
-- name: Check Kibana directory.
-  stat:
-    path: /opt/kibana
-  register: kibana_directory_check
-
-- name: Remove Kibana symlink.
-  file:
-    path: /opt/kibana
-    state: absent
-  when: kibana_directory_check.stat.islnk|default(false)
 
 - name: Install Kibana.
   apt:
@@ -28,63 +14,8 @@
     - reload systemd
     - restart kibana
 
-  # Overriding the default systemd service file that ships with the kibana
-  # apt package. The service file below was written when the role used
-  # a tarball extraction to deploy the kibana files.
-- name: Create Kibana systemd service file.
-  template:
-    src: kibana.service.j2
-    dest: /etc/systemd/system/kibana.service
-    owner: root
-    group: root
-    mode: "0644"
-  notify:
-    - reload systemd
-    - restart kibana
-
-  # Two-pass approach to creating logfile idempotently. Create the empty logfile
-  # if none exists (force: no), but to ensure permissions we need a second task.
-- name: Create logfile for Kibana.
-  copy:
-    dest: "{{ elk_kibana_logfile }}"
-    owner: root
-    group: "{{ elk_kibana_user }}"
-    mode: "0660"
-    force: no
-    content: ""
-  # The default value is 'stdout', which when running as a service dumps to syslog.
-  # Run a sanity check for a leading slash, then assume we have an absolute path and
-  # proceed with creating the logfile.
-  when: elk_kibana_logfile.startswith('/')
-  notify: restart kibana
-
-  # Force permissions on logfile, even if previous copy task backed off.
-- name: Set permissions on logfile for Kibana.
-  file:
-    path: "{{ elk_kibana_logfile }}"
-    owner: root
-    group: "{{ elk_kibana_user }}"
-    mode: "0660"
-  when: elk_kibana_logfile.startswith('/')
-  notify: restart kibana
-
-- name: Update Kibana config file.
-  lineinfile:
-    dest: /opt/kibana/config/kibana.yml
-    regexp: "{{ item.regexp }}"
-    line: "{{ item.line }}"
-    state: present
-  with_items:
-    - regexp: '^server\.host'
-      line: 'server.host: "localhost"'
-    - regexp: '^kibana\.defaultAppId:'
-      line: 'kibana.defaultAppId: "{{ elk_kibana_default_app }}"'
-    - regexp: '^logging\.dest:'
-      line: 'logging.dest: "{{ elk_kibana_logfile }}"'
-  notify: restart kibana
-
 - name: Start kibana service.
   service:
     name: kibana
-    state: running
+    state: started
     enabled: yes

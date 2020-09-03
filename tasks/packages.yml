@@ -9,5 +9,5 @@
 # Therefore let's add it once and be done with it.
 - name: Add Elastic repositories apt key.
   apt_key:
-    url: https://packages.elastic.co/GPG-KEY-elasticsearch
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
     state: present
