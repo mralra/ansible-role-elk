@@ -16,7 +16,7 @@ describe package('elasticsearch') do
   # Might be a little aggressive to test for exact version number.
   its('version') { should >= '2.4.2' }
 end
-describe package('openjdk-7-jre-headless') do
+describe package('openjdk-11-jre-headless') do
   it { should be_installed }
 end
 

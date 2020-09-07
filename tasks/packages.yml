@@ -1,7 +1,7 @@
 ---
 - name: Install Java.
   apt:
-    name: openjdk-7-jre-headless
+    name: openjdk-11-jre-headless
     state: present
 
 # This GPG key is used for checking signatures on packages for all three
