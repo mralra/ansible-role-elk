@@ -6,8 +6,8 @@
 - include: elasticsearch.yml
   tags: elasticsearch
 
-- include: mappings.yml
-  tags: mappings
+# - include: mappings.yml
+#   tags: mappings
 
 - include: logstash.yml
   tags: logstash
